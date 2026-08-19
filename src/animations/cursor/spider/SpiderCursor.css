@@ -1,0 +1,93 @@
+.spider-web-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+.spider-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 22px;
+  height: 26px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-100px, -100px, 0);
+  transition: opacity 120ms ease;
+  will-change: transform;
+}
+
+.spider-cursor__mask {
+  position: absolute;
+  top: -13px;
+  left: -11px;
+  width: 22px;
+  height: 26px;
+  overflow: hidden;
+  border: 1.5px solid #151b29;
+  border-radius: 48% 48% 44% 44% / 43% 43% 57% 57%;
+  background:
+    linear-gradient(28deg, transparent 47%, rgba(20, 25, 38, .85) 49% 52%, transparent 54%),
+    linear-gradient(-28deg, transparent 47%, rgba(20, 25, 38, .85) 49% 52%, transparent 54%),
+    #e52d3d;
+  box-shadow: 0 2px 9px rgba(12, 18, 30, .35);
+  transform: rotate(var(--spider-cursor-tilt, 0deg));
+  transform-origin: center;
+  transition: transform 120ms ease-out;
+}
+
+.spider-cursor__mask::before,
+.spider-cursor__mask::after {
+  position: absolute;
+  left: 50%;
+  width: 30px;
+  height: 15px;
+  content: '';
+  border: 1px solid rgba(19, 25, 39, .75);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.spider-cursor__mask::before { top: 5px; }
+.spider-cursor__mask::after { top: 12px; }
+
+.spider-cursor__eye {
+  position: absolute;
+  z-index: 2;
+  top: 6px;
+  width: 5px;
+  height: 10px;
+  border: 1.5px solid #111827;
+  background: #f7fbff;
+}
+
+.spider-cursor__eye--left {
+  left: 4px;
+  border-radius: 80% 25% 65% 35%;
+  transform: rotate(-14deg);
+}
+
+.spider-cursor__eye--right {
+  right: 4px;
+  border-radius: 25% 80% 35% 65%;
+  transform: rotate(14deg);
+}
+
+@media (pointer: fine) {
+  .spider-cursor-active,
+  .spider-cursor-active body,
+  .spider-cursor-active a,
+  .spider-cursor-active button,
+  .spider-cursor-active input,
+  .spider-cursor-active textarea,
+  .spider-cursor-active select {
+    cursor: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spider-cursor { transition: none; }
+  .spider-cursor__mask { transition: none; }
+}
