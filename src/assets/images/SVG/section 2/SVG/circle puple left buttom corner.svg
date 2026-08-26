@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 586.39 586.39">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d29fff;
+        mix-blend-mode: multiply;
+      }
+
+      .cls-2 {
+        isolation: isolate;
+      }
+    </style>
+  </defs>
+  <g class="cls-2">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="_2" data-name="2">
+        <circle id="circle_puple_left_buttom_corner" data-name="circle puple left buttom corner" class="cls-1" cx="293.19" cy="293.19" r="293.19"/>
+      </g>
+    </g>
+  </g>
+</svg>

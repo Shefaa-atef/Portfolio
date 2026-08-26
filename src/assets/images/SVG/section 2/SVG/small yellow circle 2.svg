@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36.9 36.9">
+  <defs>
+    <style>
+      .cls-1 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: #fec906;
+        mix-blend-mode: multiply;
+      }
+    </style>
+  </defs>
+  <g class="cls-1">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="_2" data-name="2">
+        <circle id="small_yellow_circle_2" data-name="small yellow circle 2" class="cls-2" cx="18.45" cy="18.45" r="18.45"/>
+      </g>
+    </g>
+  </g>
+</svg>

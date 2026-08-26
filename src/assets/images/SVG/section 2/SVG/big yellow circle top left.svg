@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 603.2 519.11">
+  <defs>
+    <style>
+      .cls-1 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: #fec906;
+        mix-blend-mode: multiply;
+      }
+    </style>
+  </defs>
+  <g class="cls-1">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="_2" data-name="2">
+        <path id="big_yellow_circle_top_left" data-name="big yellow circle top left" class="cls-2" d="M529.41,163.4c-9.44,0-18.46,1.79-26.76,5.03C465.74,70.04,370.83,0,259.56,0,116.21,0,0,116.21,0,259.56s116.21,259.56,259.56,259.56c126.29,0,231.49-90.2,254.75-209.68,4.88,1.01,9.93,1.55,15.1,1.55,40.75,0,73.79-33.04,73.79-73.79s-33.04-73.79-73.79-73.79Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

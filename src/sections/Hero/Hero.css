@@ -1,0 +1,552 @@
+@font-face {
+  font-family: 'Might Makes Right';
+  src: url('../../assets/fonts/Might Makes Right BB.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+::selection {
+  color: #fff;
+  background: #fff;
+  mix-blend-mode: difference;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  color: #fff;
+  background: #fff;
+  text-shadow: none;
+}
+
+@font-face {
+  font-family: 'Might Makes Right';
+  src: url('../../assets/fonts/Might Makes Right BB Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Might Makes Right';
+  src: url('../../assets/fonts/Might Makes Right BB Bold Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Comic Roasting';
+  src: url('../../assets/fonts/Comic Roasting.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bazinga';
+  src: url('../../assets/fonts/Bazinga-Regular.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.hero-section {
+  --ink: #181417;
+  --paper-pink: #ef7fc2;
+  --headline: #bc68df;
+  /* Web controls: change these values to reposition or resize each web. */
+  --web-one-top: -16%;
+  --web-one-right: 0%;
+  --web-one-width: min(30vw, 300px);
+  --web-two-top: -16%;
+  --web-two-right: 4%;
+  --web-two-width: min(70vw, 1200px);
+  --web-three-top: -20%;
+  --web-three-left: -4%;
+  --web-three-width: min(34vw, 1000px);
+  /* Ribbon tape controls. Negative side offsets hide tape off-screen. */
+  --ribbon-tape-width: clamp(180px, 16vw, 230px);
+  --ribbon-tape-left-top: 120%;
+  --ribbon-tape-right-top: 5%;
+  --ribbon-tape-left: -8%;
+  --ribbon-tape-right: -8%;
+  --ribbon-tape-left-angle: -4deg;
+  --ribbon-tape-right-angle: 4deg;
+  /* Bottom-left halftone controls. */
+  --dots-bottom: 2%;
+  --dots-left: -8%;
+  --dots-width: min(30vw, 430px);
+  --dots-opacity: .45;
+  /* Tape above the 2026 card. */
+  --year-tape-top: 0%;
+  --year-tape-width: 118%;
+  --year-tape-angle: -2deg;
+  position: relative;
+  isolation: isolate;
+  min-height: max(720px, 100svh);
+  overflow: hidden;
+  color: var(--ink);
+  background: #562b64;
+}
+
+.hero-section__purple-background,
+.hero-section__character,
+.hero-section__paper,
+.hero-web,
+.hero-dots,
+.hero-year img,
+.hero-tape {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-section__purple-background {
+  z-index: -4;
+  inset: 0 0 auto;
+  width: 100%;
+  height: 43%;
+  opacity: .50;
+  object-fit: cover;
+  object-position: center 48%;
+}
+
+.hero-section__paper {
+  z-index: -2;
+  top: 18.5%;
+  left: 50%;
+  width: 108%;
+  height: 91%;
+  object-fit: fill;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 -5px 5px rgba(25, 8, 30, .2));
+}
+
+.hero-section__character {
+  z-index: 2;
+  top: -6%;
+  left: 50%;
+  width: min(88vw, 1270px);
+  height: auto;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 7px 2px rgba(29, 11, 35, .18));
+}
+
+.hero-header {
+  position: absolute;
+  z-index: 4;
+  inset: 1.8% 2.5% auto 5.5%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.hero-label p,
+.hero-title,
+.hero-ribbon p {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.hero-kicker,
+.hero-name {
+  position: absolute;
+  z-index: 4;
+  box-sizing: border-box;
+  border-radius: 2px;
+  color: #050405;
+}
+
+.hero-label p {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  min-height: inherit;
+  place-items: center;
+  box-sizing: border-box;
+  border-radius: 2px;
+  background-color: var(--paper-pink);
+  background-image: radial-gradient(circle at center, rgba(116, 23, 105, .23) 0 1.8px, transparent 2px);
+  background-size: 7px 7px;
+  text-align: center;
+}
+
+.hero-label p span {
+  display: block;
+  transform: translateY(-.08em);
+}
+
+.hero-name p span {
+  transform: translateY(-.18em);
+}
+
+.hero-kicker::before,
+.hero-kicker::after,
+.hero-name::before,
+.hero-name::after {
+  position: absolute;
+  z-index: 1;
+  border-radius: 2px;
+  background-color: #090709;
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, .16) 0 1.8px, transparent 2px);
+  background-size: 7px 7px;
+  content: '';
+}
+
+.hero-kicker::before,
+.hero-name::before {
+  inset: -15px 16px 15px -16px;
+}
+
+.hero-kicker::after,
+.hero-name::after {
+  inset: 18px -15px -18px 15px;
+}
+
+.hero-kicker {
+  top: 32.5%;
+  left: 5.5%;
+  width: min(34%, 470px);
+  min-height: 104px;
+  font-family: 'Might Makes Right', cursive;
+  font-size: clamp(3rem, 4.85vw, 4.35rem);
+  font-style: italic;
+  font-weight: 700;
+  line-height: .9;
+  text-transform: uppercase;
+  transform: rotate(-.25deg);
+}
+
+.hero-name {
+  top: 38.5%;
+  right: 4.5%;
+  width: min(34%, 470px);
+  min-height: 104px;
+  font-family: 'Might Makes Right', cursive;
+  font-size: clamp(3.2rem, 5vw, 4.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: .9;
+  text-transform: uppercase;
+  transform: rotate(.3deg);
+}
+
+.hero-kicker p {
+  padding: .1em .32em;
+}
+
+.hero-name p {
+  padding: .08em .25em;
+  white-space: nowrap;
+}
+
+.menu-button {
+  display: grid;
+  min-width: 190px;
+  min-height: 92px;
+  place-items: center;
+  padding: .14em .42em;
+  border: 5px solid var(--ink);
+  border-radius: 95px;
+  color: #050405;
+  background: #fff;
+  box-shadow: 8px 9px 0 var(--ink);
+  font-family: 'Might Makes Right', cursive;
+  font-size: clamp(3rem, 5vw, 4.55rem);
+  font-weight: 400;
+  line-height: .83;
+  text-transform: uppercase;
+  transform: rotate(1deg);
+}
+
+.menu-button span {
+  display: block;
+  transform: translateY(-.23em) rotate(-1deg);
+}
+
+.menu-button:hover {
+  box-shadow: 4px 5px 0 var(--ink);
+  transform: translate(4px, 4px) rotate(1deg);
+}
+
+.menu-button:focus-visible {
+  outline: 4px solid #f788c3;
+  outline-offset: 6px;
+}
+
+.hero-title {
+  position: absolute;
+  z-index: 3;
+  top: 63.5%;
+  left: 50%;
+  width: 90%;
+  color: var(--headline);
+  font-family: 'Comic Roasting', fantasy;
+  font-size: clamp(5rem, 9.4vw, 8.45rem);
+  font-weight: 400;
+  letter-spacing: .005em;
+  line-height: .94;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-text-stroke: 10px #090709;
+  paint-order: stroke fill;
+  transform: translateX(-50%) rotate(-.7deg);
+}
+
+.hero-year {
+  position: absolute;
+  z-index: 4;
+  top: 53.7%;
+  left: 6.5%;
+  display: grid;
+  width: clamp(58px, 5.55vw, 80px);
+  min-height: 12%;
+  place-content: center;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  color: #6b177c;
+  background: #fff;
+  font-family: 'Bazinga', fantasy;
+  font-size: clamp(2.35rem, 3.9vw, 3.5rem);
+  line-height: .86;
+  text-align: center;
+}
+
+.hero-year img {
+  z-index: 1;
+  top: var(--year-tape-top);
+  left: 50%;
+  width: var(--year-tape-width);
+  transform: translate(-50%, -50%) rotate(var(--year-tape-angle));
+}
+
+.hero-title span {
+  display: inline;
+}
+
+.hero-title span:last-child {
+  margin-left: .08em;
+}
+
+.hero-ribbon {
+  position: absolute;
+  z-index: 2;
+  bottom: 3.5%;
+  left: -2%;
+  width: 105%;
+  color: #fff;
+  font-family: 'Might Makes Right', cursive;
+  font-size: clamp(2.2rem, 4.3vw, 3.9rem);
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.hero-ribbon::before {
+  position: absolute;
+  z-index: -1;
+  inset: 11px -2% 10px;
+  border-radius: 2px;
+  background: #6b177c;
+  content: '';
+  transform: rotate(2.8deg);
+}
+
+.hero-ribbon__viewport {
+  overflow: hidden;
+  border-block: 4px solid var(--ink);
+  border-radius: 2px;
+  background: var(--ink);
+  transform: rotate(.7deg);
+}
+
+.hero-ribbon__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  padding: .62rem 0;
+  animation: hero-ribbon-loop 18s linear infinite;
+  will-change: transform;
+}
+
+.hero-ribbon__track p {
+  flex: none;
+  padding-right: 5rem;
+  line-height: 1;
+  transform: translateY(-.18em);
+}
+
+.hero-tape {
+  z-index: 2;
+  width: var(--ribbon-tape-width);
+  opacity: .96;
+}
+
+.hero-tape--left {
+  top: var(--ribbon-tape-left-top);
+  left: var(--ribbon-tape-left);
+  transform: translateY(-50%) rotate(var(--ribbon-tape-left-angle));
+}
+
+.hero-tape--right {
+  top: var(--ribbon-tape-right-top);
+  right: var(--ribbon-tape-right);
+  transform: translateY(-50%) rotate(var(--ribbon-tape-right-angle));
+}
+
+@keyframes hero-ribbon-loop {
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.hero-web {
+  z-index: 1;
+  opacity: .84;
+}
+
+.hero-web--one {
+  top: var(--web-one-top);
+  right: var(--web-one-right);
+  width: var(--web-one-width);
+}
+
+.hero-web--two {
+  top: var(--web-two-top);
+  right: var(--web-two-right);
+  width: var(--web-two-width);
+}
+
+.hero-web--three {
+  top: var(--web-three-top);
+  right: auto;
+  left: var(--web-three-left);
+  width: var(--web-three-width);
+  opacity: .84;
+}
+
+.hero-dots {
+  z-index: 0;
+  bottom: var(--dots-bottom);
+  left: var(--dots-left);
+  width: var(--dots-width);
+  opacity: var(--dots-opacity);
+}
+
+@media (max-width: 760px) {
+  .hero-section {
+    --web-one-width: 22vw;
+    --web-two-width: 58vw;
+    --web-three-top: -4%;
+    --web-three-left: -5%;
+    --web-three-width: 58vw;
+    --dots-width: 47vw;
+    min-height: max(700px, 100svh);
+  }
+
+  .hero-section__purple-background {
+    height: 37%;
+  }
+
+  .hero-section__paper {
+    top: 19%;
+    width: 175%;
+    height: 94%;
+  }
+
+  .hero-section__character {
+    top: -1%;
+    width: 132vw;
+  }
+
+  .hero-header {
+    inset: 2.5% 4.5% auto auto;
+  }
+
+  .menu-button {
+    min-width: 108px;
+    border-width: 3px;
+    box-shadow: 5px 5px 0 var(--ink);
+    font-size: clamp(2.2rem, 11vw, 3rem);
+  }
+
+  .hero-kicker {
+    top: 39.5%;
+    left: 6%;
+    width: 68%;
+    min-height: 82px;
+    font-size: clamp(2.1rem, 10vw, 2.75rem);
+  }
+
+  .hero-name {
+    top: 52.5%;
+    right: 5%;
+    width: 69%;
+    min-height: 82px;
+    font-size: clamp(2.15rem, 10.5vw, 2.85rem);
+  }
+
+  .hero-kicker::before,
+  .hero-name::before {
+    inset: -8px 9px 8px -9px;
+  }
+
+  .hero-kicker::after,
+  .hero-name::after {
+    inset: 10px -8px -10px 8px;
+  }
+
+  .hero-title {
+    top: 67%;
+    width: 94%;
+    font-size: clamp(4.2rem, 20vw, 6rem);
+    line-height: .8;
+    white-space: normal;
+    -webkit-text-stroke-width: 8px;
+  }
+
+  .hero-title span {
+    display: block;
+  }
+
+  .hero-title span:last-child {
+    margin-left: 5%;
+  }
+
+  .hero-ribbon {
+    bottom: 2%;
+    font-size: clamp(1.8rem, 8vw, 2.4rem);
+  }
+
+  .hero-year {
+    left: 7.5%;
+    width: 58px;
+    min-height: 105px;
+    font-size: 2.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ribbon__track {
+    animation: none;
+  }
+}

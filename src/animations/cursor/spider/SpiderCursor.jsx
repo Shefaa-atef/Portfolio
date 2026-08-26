@@ -1,4 +1,6 @@
 import { useEffect, useRef } from 'react'
+import normalCursor from '../../../assets/icons/normal cursor.svg'
+import clickCursor from '../../../assets/icons/click cursor.svg'
 import './SpiderCursor.css'
 
 const EDGE_RANGE = 220
@@ -6,6 +8,26 @@ const SEGMENTS = 18
 const MAX_DROPPED_WEBS = 5
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
+
+const INTERACTIVE_SELECTOR = [
+  'a[href]',
+  'button:not(:disabled)',
+  'input:not(:disabled)',
+  'select:not(:disabled)',
+  'textarea:not(:disabled)',
+  'label[for]',
+  'summary',
+  '[role="button"]',
+  '[role="link"]',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',')
+
+function isInteractiveTarget(target) {
+  if (!(target instanceof Element)) return false
+  const interactiveElement = target.closest(INTERACTIVE_SELECTOR)
+
+  return Boolean(interactiveElement) || getComputedStyle(target).cursor === 'pointer'
+}
 
 function nearestEdge(x, width) {
   const candidates = [
@@ -32,74 +54,6 @@ function makeRope(anchor, end) {
     const y = anchor.y + (end.y - anchor.y) * progress
     return { x, y, oldX: x, oldY: y }
   })
-}
-
-function endpointGeometry(wallPoint, linePoint) {
-  const offsetX = linePoint.x - wallPoint.x
-  const offsetY = linePoint.y - wallPoint.y
-  const distance = Math.max(0.001, Math.hypot(offsetX, offsetY))
-  const direction = { x: offsetX / distance, y: offsetY / distance }
-
-  return {
-    webTip: {
-      x: wallPoint.x + direction.x * 17,
-      y: wallPoint.y + direction.y * 17,
-    },
-    lineStart: {
-      x: wallPoint.x + direction.x * 17,
-      y: wallPoint.y + direction.y * 17,
-    },
-  }
-}
-
-function drawWebSplat(
-  context,
-  anchor,
-  edge,
-  opacity = 1,
-  scale = 1,
-  wallPoint = null,
-) {
-  const outward = {
-    left: { x: -1, y: 0 },
-    right: { x: 1, y: 0 },
-  }[edge]
-  const baseAngle = wallPoint
-    ? Math.atan2(wallPoint.y - anchor.y, wallPoint.x - anchor.x)
-    : Math.atan2(outward.y, outward.x)
-  const direction = { x: Math.cos(baseAngle), y: Math.sin(baseAngle) }
-
-  context.save()
-  context.globalAlpha = opacity
-  context.strokeStyle = '#eef7ff'
-  context.lineWidth = 1.15
-  context.lineCap = 'round'
-
-  for (let ray = -2; ray <= 2; ray += 1) {
-    const angle = baseAngle + ray * 0.34
-    const length = (17 - Math.abs(ray) * 1.8) * scale
-    context.beginPath()
-    context.moveTo(anchor.x, anchor.y)
-    context.lineTo(
-      anchor.x + Math.cos(angle) * length,
-      anchor.y + Math.sin(angle) * length,
-    )
-    context.stroke()
-  }
-
-  for (let ring = 1; ring <= 2; ring += 1) {
-    const radius = ring * 6.2 * scale
-    context.beginPath()
-    for (let ray = -2; ray <= 2; ray += 1) {
-      const angle = baseAngle + ray * 0.34
-      const px = anchor.x + Math.cos(angle) * radius
-      const py = anchor.y + Math.sin(angle) * radius
-      if (ray === -2) context.moveTo(px, py)
-      else context.quadraticCurveTo(anchor.x + direction.x * radius, anchor.y + direction.y * radius, px, py)
-    }
-    context.stroke()
-  }
-  context.restore()
 }
 
 function drawRope(context, points, opacity, progress = 1) {
@@ -171,6 +125,7 @@ export default function SpiderCursor() {
     let activeWeb = null
     let droppedWebs = []
     const mouse = { x: width / 2, y: height / 2 }
+    let hoveringInteractive = false
 
     document.documentElement.classList.add('spider-cursor-active')
 
@@ -207,6 +162,7 @@ export default function SpiderCursor() {
       })
       droppedWebs = droppedWebs.slice(-MAX_DROPPED_WEBS)
       activeWeb = null
+      cursor.classList.toggle('spider-cursor--click', hoveringInteractive)
     }
 
     const move = (event) => {
@@ -215,6 +171,7 @@ export default function SpiderCursor() {
       mouse.x = event.clientX
       mouse.y = event.clientY
       visible = true
+      hoveringInteractive = isInteractiveTarget(event.target)
       cursor.style.opacity = '1'
       cursor.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0)`
 
@@ -237,6 +194,11 @@ export default function SpiderCursor() {
       } else if (activeWeb && nearest.distance > attachRange + 30) {
         dropActiveWeb(now)
       }
+
+      cursor.classList.toggle(
+        'spider-cursor--click',
+        hoveringInteractive || Boolean(activeWeb),
+      )
 
       const tilt = activeWeb
         ? (Math.atan2(
@@ -267,20 +229,11 @@ export default function SpiderCursor() {
 
       if (activeWeb && visible) {
         const shootProgress = clamp((now - activeWeb.born) / 145, 0, 1)
-        const endpoint = endpointGeometry(activeWeb.anchor, mouse)
-        const rope = makeRope(endpoint.lineStart, mouse)
+        const rope = makeRope(mouse, activeWeb.anchor)
         const distance = nearestEdge(mouse.x, width).distance
         const tension = clamp(1 - distance / EDGE_RANGE, 0.18, 1)
 
         drawRope(context, rope, 0.58 + tension * 0.4, shootProgress)
-        drawWebSplat(
-          context,
-          endpoint.webTip,
-          activeWeb.edge,
-          shootProgress,
-          0.72 + shootProgress * 0.28,
-          activeWeb.anchor,
-        )
       }
 
       droppedWebs = droppedWebs.filter((rope) => now - rope.born < 1900)
@@ -303,22 +256,8 @@ export default function SpiderCursor() {
         rope.velocity.y = (rope.end.y - previousY) / frameScale
 
         const opacity = clamp(1 - Math.max(0, age - 1050) / 850, 0, 0.82)
-        const guidePoints = fallingRopePoints(rope)
-        const endpoint = endpointGeometry(rope.anchor, guidePoints[1])
-        const points = fallingRopePoints({
-          ...rope,
-          anchor: endpoint.lineStart,
-          length: Math.max(1, rope.length - 17),
-        })
+        const points = fallingRopePoints(rope)
         drawRope(context, points, opacity)
-        drawWebSplat(
-          context,
-          endpoint.webTip,
-          rope.edge,
-          opacity * 0.8,
-          1,
-          rope.anchor,
-        )
       })
 
       animationFrame = requestAnimationFrame(animate)
@@ -345,10 +284,16 @@ export default function SpiderCursor() {
     <>
       <canvas ref={canvasRef} className="spider-web-canvas" aria-hidden="true" />
       <div ref={cursorRef} className="spider-cursor" aria-hidden="true">
-        <span className="spider-cursor__mask">
-          <i className="spider-cursor__eye spider-cursor__eye--left" />
-          <i className="spider-cursor__eye spider-cursor__eye--right" />
-        </span>
+        <img
+          className="spider-cursor__icon spider-cursor__icon--normal"
+          src={normalCursor}
+          alt=""
+        />
+        <img
+          className="spider-cursor__icon spider-cursor__icon--click"
+          src={clickCursor}
+          alt=""
+        />
       </div>
     </>
   )

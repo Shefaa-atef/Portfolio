@@ -1,0 +1,79 @@
+.loading-screen {
+  --loader-spider-start: 160px;
+  position: fixed;
+  z-index: 20000;
+  inset: 0;
+  pointer-events: all;
+}
+
+.loading-screen__spider-curtain {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  background: #fff;
+  -webkit-mask-image:
+    linear-gradient(#fff 0 0),
+    url('../../assets/icons/spider.svg');
+  -webkit-mask-position: center, center;
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-size: 100% 100%, auto var(--loader-spider-start);
+  -webkit-mask-composite: xor;
+  mask-image:
+    linear-gradient(#fff 0 0),
+    url('../../assets/icons/spider.svg');
+  mask-position: center, center;
+  mask-repeat: no-repeat, no-repeat;
+  mask-size: 100% 100%, auto var(--loader-spider-start);
+  mask-composite: exclude;
+  will-change: opacity, mask-size;
+}
+
+.loading-screen--reveal .loading-screen__spider-curtain {
+  animation:
+    spider-page-reveal 5.2s cubic-bezier(.65, 0, 1, .2) forwards,
+    white-surroundings-fade 5.2s linear forwards;
+}
+
+@keyframes spider-page-reveal {
+  0%,
+  15% {
+    -webkit-mask-size: 100% 100%, auto var(--loader-spider-start);
+    mask-size: 100% 100%, auto var(--loader-spider-start);
+  }
+
+  100% {
+    -webkit-mask-size: 100% 100%, auto 900vmax;
+    mask-size: 100% 100%, auto 900vmax;
+  }
+}
+
+@keyframes white-surroundings-fade {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: .72;
+  }
+
+  85% {
+    opacity: .26;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .loading-screen {
+    --loader-spider-start: 132px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-screen--reveal .loading-screen__spider-curtain {
+    animation-duration: 1ms;
+  }
+}

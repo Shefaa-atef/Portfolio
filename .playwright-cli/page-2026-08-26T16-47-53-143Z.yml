@@ -1,0 +1,17 @@
+- main [ref=e3]:
+  - region [ref=e4]:
+    - button "Open menu" [ref=e6]:
+      - generic [ref=e7]: Menu
+    - paragraph [ref=e9]:
+      - generic [ref=e10]: Portfolio
+    - paragraph [ref=e12]:
+      - generic [ref=e13]: Shefa Atef
+    - generic "2026" [ref=e14]:
+      - generic [ref=e15]: "20"
+      - generic [ref=e16]: "26"
+    - heading "Creative Developer" [level=1] [ref=e17]
+    - generic [ref=e20]:
+      - paragraph [ref=e21]: With great skills come great projects
+      - paragraph [ref=e22]: With great skills come great projects
+      - paragraph [ref=e23]: With great skills come great projects
+      - paragraph [ref=e24]: With great skills come great projects
