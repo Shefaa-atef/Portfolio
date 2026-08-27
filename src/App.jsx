@@ -10,7 +10,7 @@ function App() {
     <>
       <SpiderCursor />
       <main inert={isLoading}>
-        <Hero />
+        <Hero isReady={!isLoading} />
       </main>
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
     </>

@@ -4,6 +4,7 @@ import clickCursor from '../../../assets/icons/click cursor.svg'
 import './SpiderCursor.css'
 
 const EDGE_RANGE = 220
+const ELEMENT_WEB_SNAP_DISTANCE = 235
 const SEGMENTS = 18
 const MAX_DROPPED_WEBS = 5
 
@@ -45,6 +46,15 @@ function edgeAnchor(edge, y, width, height) {
 
   if (edge === 'left') return { x: 0, y: clamp(y - 34, padding, height - padding) }
   return { x: width, y: clamp(y - 34, padding, height - padding) }
+}
+
+function elementAnchor(element, x, y) {
+  const bounds = element.getBoundingClientRect()
+
+  return {
+    x: clamp(x, bounds.left, bounds.right),
+    y: clamp(y, bounds.top, bounds.bottom),
+  }
 }
 
 function makeRope(anchor, end) {
@@ -179,10 +189,21 @@ export default function SpiderCursor() {
       const attachRange = reducedMotion.matches ? 165 : EDGE_RANGE
       const now = performance.now()
 
-      if (nearest.distance <= attachRange) {
+      if (activeWeb?.source === 'element') {
+        activeWeb.velocity.x = mouse.x - previousX
+        activeWeb.velocity.y = mouse.y - previousY
+
+        const stretch = Math.hypot(
+          mouse.x - activeWeb.anchor.x,
+          mouse.y - activeWeb.anchor.y,
+        )
+
+        if (stretch > ELEMENT_WEB_SNAP_DISTANCE) dropActiveWeb(now)
+      } else if (nearest.distance <= attachRange) {
         if (!activeWeb || activeWeb.edge !== nearest.edge) {
           dropActiveWeb(now)
           activeWeb = {
+            source: 'edge',
             edge: nearest.edge,
             anchor: edgeAnchor(nearest.edge, mouse.y, width, height),
             born: now,
@@ -212,6 +233,24 @@ export default function SpiderCursor() {
       cursor.style.setProperty('--spider-cursor-tilt', `${tilt}deg`)
     }
 
+    const startElementWeb = (event) => {
+      const target = event.target instanceof Element
+        ? event.target.closest('[data-spider-web-leave]')
+        : null
+
+      if (!target || target.contains(event.relatedTarget)) return
+
+      const now = performance.now()
+      dropActiveWeb(now)
+      activeWeb = {
+        source: 'element',
+        anchor: elementAnchor(target, event.clientX, event.clientY),
+        born: now,
+        velocity: { x: 0, y: 0 },
+      }
+      cursor.classList.add('spider-cursor--click')
+    }
+
     const leave = () => {
       visible = false
       cursor.style.opacity = '0'
@@ -230,8 +269,15 @@ export default function SpiderCursor() {
       if (activeWeb && visible) {
         const shootProgress = clamp((now - activeWeb.born) / 145, 0, 1)
         const rope = makeRope(mouse, activeWeb.anchor)
-        const distance = nearestEdge(mouse.x, width).distance
-        const tension = clamp(1 - distance / EDGE_RANGE, 0.18, 1)
+        const distance = activeWeb.source === 'element'
+          ? Math.hypot(
+              mouse.x - activeWeb.anchor.x,
+              mouse.y - activeWeb.anchor.y,
+            )
+          : nearestEdge(mouse.x, width).distance
+        const tension = activeWeb.source === 'element'
+          ? clamp(distance / ELEMENT_WEB_SNAP_DISTANCE, .2, 1)
+          : clamp(1 - distance / EDGE_RANGE, .18, 1)
 
         drawRope(context, rope, 0.58 + tension * 0.4, shootProgress)
       }
@@ -266,6 +312,7 @@ export default function SpiderCursor() {
     resize()
     window.addEventListener('resize', resize)
     window.addEventListener('mousemove', move, { passive: true })
+    document.addEventListener('pointerout', startElementWeb, { passive: true })
     document.documentElement.addEventListener('mouseleave', leave)
     document.documentElement.addEventListener('mouseenter', enter)
     animationFrame = requestAnimationFrame(animate)
@@ -274,6 +321,7 @@ export default function SpiderCursor() {
       cancelAnimationFrame(animationFrame)
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', move)
+      document.removeEventListener('pointerout', startElementWeb)
       document.documentElement.removeEventListener('mouseleave', leave)
       document.documentElement.removeEventListener('mouseenter', enter)
       document.documentElement.classList.remove('spider-cursor-active')

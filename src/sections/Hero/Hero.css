@@ -313,22 +313,97 @@ body {
 }
 
 .hero-year {
+  --year-peel-size: clamp(15px, 1.25vw, 18px);
   position: absolute;
   z-index: 4;
   top: 53.7%;
   left: 6.5%;
-  display: grid;
   width: clamp(58px, 5.55vw, 80px);
   min-height: 12%;
-  place-content: center;
-  border: 2px solid var(--ink);
-  border-radius: 2px;
   color: #6b177c;
-  background: #fff;
   font-family: 'Bazinga', fantasy;
   font-size: clamp(2.35rem, 3.9vw, 3.5rem);
   line-height: .86;
   text-align: center;
+}
+
+.hero-year::before,
+.hero-year::after {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: var(--year-peel-size);
+  aspect-ratio: 1;
+  content: '';
+  pointer-events: none;
+  transform: scale(.04) rotate(-10deg);
+  transform-origin: 100% 100%;
+  transition: transform .46s cubic-bezier(.16, .9, .24, 1);
+  will-change: transform;
+}
+
+.hero-year::before {
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  border-radius: 0 0 2px;
+  background: rgba(24, 20, 23, .24);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  filter: blur(1.5px);
+}
+
+.hero-year::after {
+  z-index: 3;
+  background:
+    linear-gradient(
+      135deg,
+      #fff 4%,
+      #f3e9f5 48%,
+      #d1aed9 78%,
+      #a865b7 100%
+    );
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  filter: drop-shadow(4px 4px 3px rgba(24, 20, 23, .4));
+}
+
+.hero-year__paper {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
+  filter: drop-shadow(0 0 0 rgba(24, 20, 23, 0));
+  transition:
+    clip-path .42s cubic-bezier(.2, .85, .2, 1),
+    filter .42s ease;
+}
+
+.hero-year:hover .hero-year__paper {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--year-peel-size)),
+    calc(100% - var(--year-peel-size)) 100%,
+    0 100%
+  );
+  filter: drop-shadow(3px 5px 2px rgba(24, 20, 23, .18));
+}
+
+.hero-year:hover::after {
+  transform: scale(1) rotate(0);
+}
+
+.hero-year:hover::before {
+  transform: scale(1.08) rotate(0);
+}
+
+.hero-year__paper span {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-year img {
@@ -339,12 +414,24 @@ body {
   transform: translate(-50%, -50%) rotate(var(--year-tape-angle));
 }
 
-.hero-title span {
-  display: inline;
+.hero-title__word,
+.hero-title__letter {
+  display: inline-block;
 }
 
-.hero-title span:last-child {
-  margin-left: .08em;
+.hero-title__word:last-child {
+  margin-left: .13em;
+}
+
+.hero-title__letter {
+  opacity: 0;
+  transform: translateY(.16em) rotate(var(--letter-tilt)) scale(.35);
+  transform-origin: 50% 72%;
+}
+
+.hero-section--ready .hero-title__letter {
+  animation: hero-letter-stamp .48s cubic-bezier(.2, .9, .25, 1.3) both;
+  animation-delay: var(--letter-delay);
 }
 
 .hero-ribbon {
@@ -384,7 +471,6 @@ body {
   align-items: center;
   width: max-content;
   padding: .62rem 0;
-  animation: hero-ribbon-loop 18s linear infinite;
   will-change: transform;
 }
 
@@ -413,9 +499,20 @@ body {
   transform: translateY(-50%) rotate(var(--ribbon-tape-right-angle));
 }
 
-@keyframes hero-ribbon-loop {
-  to {
-    transform: translateX(-25%);
+@keyframes hero-letter-stamp {
+  0% {
+    opacity: 0;
+    transform: translateY(.16em) rotate(var(--letter-tilt)) scale(.35);
+  }
+
+  68% {
+    opacity: 1;
+    transform: translateY(-.035em) rotate(-1deg) scale(1.09);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0) scale(1);
   }
 }
 
@@ -455,8 +552,9 @@ body {
 @media (max-width: 760px) {
   .hero-section {
     --web-one-width: 22vw;
+    --web-two-top: -24%;
     --web-two-width: 58vw;
-    --web-three-top: -4%;
+    --web-three-top: -19%;
     --web-three-left: -5%;
     --web-three-width: 58vw;
     --dots-width: 47vw;
@@ -524,11 +622,11 @@ body {
     -webkit-text-stroke-width: 8px;
   }
 
-  .hero-title span {
+  .hero-title__word {
     display: block;
   }
 
-  .hero-title span:last-child {
+  .hero-title__word:last-child {
     margin-left: 5%;
   }
 
@@ -546,7 +644,15 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-ribbon__track {
+  .hero-title__letter {
+    opacity: 1;
     animation: none;
+    transform: none;
+  }
+
+  .hero-year::before,
+  .hero-year::after,
+  .hero-year__paper {
+    transition: none;
   }
 }
