@@ -1,0 +1,234 @@
+:root {
+  --profile-paper: #dfe0cf;
+  --profile-purple: #802bc1;
+  --profile-pink: #f580c0;
+  --profile-blue: #159fc5;
+  --profile-yellow: #e7bb00;
+}
+
+.section-two {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  aspect-ratio: 1440 / 1024;
+  min-height: 720px;
+  overflow: hidden;
+  background: var(--profile-paper);
+}
+
+.section-two__canvas,
+.section-two__background,
+.section-two__doodles {
+  position: absolute;
+  inset: 0;
+}
+
+.section-two__canvas {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.section-two__art {
+  position: absolute;
+  display: block;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+.section-two__background { z-index: 1; }
+.section-two__doodles { z-index: 3; }
+
+.section-two__yellow-shape {
+  z-index: 3;
+  top: -17.61%;
+  left: -5.95%;
+  width: 41.89%;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+
+.section-two__city {
+  z-index: 2;
+  top: -0.2%;
+  left: -5.08%;
+  width: 40.37%;
+  height: auto;
+}
+
+.section-two__pink-paint {
+  z-index: 1;
+  left: -5.1%;
+  bottom: -22.32%;
+  width: 40.77%;
+  height: auto;
+  mix-blend-mode: darken;
+}
+
+.section-two__purple-circle {
+  z-index: 1;
+  right: -14.41%;
+  bottom: -32.6%;
+  width: 40.72%;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+
+.section-two__blue-splash {
+  z-index: 2;
+  left: 67.36%;
+  top: 57.77%;
+  width: 24.09%;
+  height: auto;
+  mix-blend-mode: darken;
+}
+
+.section-two__halftone {
+  z-index: 3;
+  top: 70.28%;
+  left: 71.19%;
+  width: 46.55%;
+  height: auto;
+  opacity: .9;
+  mix-blend-mode: multiply;
+}
+
+.section-two__ui {
+  z-index: 5;
+  top: -12.1%;
+  right: -2.4%;
+  width: 29.15%;
+  height: auto;
+}
+
+.section-two__ux {
+  z-index: 5;
+  top: 25.79%;
+  right: -4.45%;
+  width: 29.8%;
+  height: auto;
+}
+
+.section-two__hacker {
+  z-index: 5;
+  top: -32.74%;
+  left: 32.27%;
+  width: 41.3%;
+  height: auto;
+}
+
+.section-two__yellow-dot { z-index: 4; height: auto; }
+
+.section-two__yellow-dot--large {
+  top: 2.34%;
+  left: 39.48%;
+  width: 3.64%;
+}
+
+.section-two__yellow-dot--small {
+  top: 6.43%;
+  left: 37.07%;
+  width: 2.56%;
+}
+
+.section-two__line { z-index: 6; height: auto; }
+
+.section-two__line--one {
+  top: -1.2%;
+  left: 68.3%;
+  width: 5%;
+}
+
+.section-two__line--two {
+  top: -31%;
+  left: 66.2%;
+  width: 22.85%;
+  opacity: .92;
+}
+
+.section-two__tech {
+  z-index: 4;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+
+.section-two__tech--ai {
+  top: 7.62%;
+  left: 25.41%;
+  width: 10.36%;
+}
+
+.section-two__tech--react {
+  top: 84.31%;
+  left: 36.87%;
+  width: 10.91%;
+}
+
+.section-two__tech--figma {
+  top: 82.18%;
+  left: 49.74%;
+  width: 9.98%;
+}
+
+.section-two__tech--flutter {
+  top: 77.11%;
+  left: 60.56%;
+  width: 14.5%;
+}
+
+.section-two__ticket {
+  position: absolute;
+  z-index: 10;
+  top: 7.8%;
+  left: 6.89%;
+  width: 82.84%;
+  margin: 0;
+  filter: drop-shadow(0 9px 0 rgb(35 35 28 / .55));
+}
+
+.section-two__ticket img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+@media (max-width: 900px) {
+  .section-two {
+    min-height: 760px;
+    aspect-ratio: auto;
+  }
+
+  .section-two__canvas {
+    left: 50%;
+    width: 1068px;
+    height: 760px;
+    transform: translateX(-50%);
+  }
+
+  .section-two__ticket {
+    top: 14%;
+    left: 9%;
+    width: 82%;
+  }
+
+  .section-two__hacker { top: -30%; }
+}
+
+@media (max-width: 560px) {
+  .section-two {
+    min-height: 680px;
+  }
+
+  .section-two__canvas {
+    width: 956px;
+    height: 680px;
+  }
+
+  .section-two__ticket {
+    top: 18%;
+    left: 10%;
+    width: 80%;
+  }
+}

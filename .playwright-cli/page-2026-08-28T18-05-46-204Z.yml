@@ -1,0 +1,24 @@
+- main [ref=e3]:
+  - region [ref=e4]:
+    - heading "Shefa Atef — The Amazing Programmer" [level=1] [ref=e5]
+    - generic [ref=e7]:
+      - img "The Amazing Programmer comic-book cover"
+    - generic [ref=e8]: Portfolio
+    - generic [ref=e10]: Shefa Atef
+    - generic "2026" [ref=e12]:
+      - generic [ref=e13]: "20"
+      - generic [ref=e14]: "26"
+    - button "Open menu" [ref=e15]:
+      - generic [ref=e16]: Menu
+    - generic "With great skills come great projects" [ref=e17]:
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - generic [ref=e25]: With great skills come great projects
+          - generic [ref=e26]: With great skills come great projects
+        - generic [ref=e27]:
+          - generic [ref=e28]: With great skills come great projects
+          - generic [ref=e29]: With great skills come great projects
+  - region [ref=e30]:
+    - heading "Designer and developer profile" [level=2] [ref=e31]
+    - figure "Shefa Atef is a UI/UX designer, front-end and mobile developer, and computer science graduate." [ref=e35]:
+      - img "UI/UX designer, front-end and mobile developer — Computer Science graduate" [ref=e36]

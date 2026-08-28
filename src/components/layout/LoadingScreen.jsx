@@ -6,23 +6,30 @@ function LoadingScreen({ onComplete }) {
   const hasFinished = useRef(false)
 
   useEffect(() => {
-    let frameId
+    let firstFrameId
+    let secondFrameId
+    let fallbackId
 
     const startReveal = () => {
-      frameId = window.requestAnimationFrame(() => setIsRevealing(true))
+      firstFrameId = window.requestAnimationFrame(() => {
+        secondFrameId = window.requestAnimationFrame(() => setIsRevealing(true))
+      })
     }
 
-    if (document.readyState === 'complete') {
-      startReveal()
-    } else {
-      window.addEventListener('load', startReveal, { once: true })
-    }
+    startReveal()
+    fallbackId = window.setTimeout(() => {
+      if (!hasFinished.current) {
+        hasFinished.current = true
+        onComplete()
+      }
+    }, 6200)
 
     return () => {
-      window.removeEventListener('load', startReveal)
-      window.cancelAnimationFrame(frameId)
+      window.cancelAnimationFrame(firstFrameId)
+      window.cancelAnimationFrame(secondFrameId)
+      window.clearTimeout(fallbackId)
     }
-  }, [])
+  }, [onComplete])
 
   const finishLoading = () => {
     if (hasFinished.current) return

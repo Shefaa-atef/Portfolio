@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 676.54 987.61">
+  <defs>
+    <style>
+      .cls-1 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: #160128;
+        mix-blend-mode: hard-light;
+        opacity: .71;
+      }
+    </style>
+  </defs>
+  <g class="cls-1">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="_1.2" data-name="1.2">
+        <g id="comics">
+          <g id="_2_comics" data-name="2 comics">
+            <image width="1007" height="1562" transform="translate(68.02) rotate(4.11) scale(.61)" xlink:href="../ChatGPT Image Aug 27, 2026, 07_03_45 PM.png"/>
+            <rect class="cls-2" x="32.98" y="24.39" width="609.62" height="942.54" transform="translate(36.38 -22.93) rotate(4.11)"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
