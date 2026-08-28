@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import aiLogo from '../../assets/images/SVG/section 2/SVG/ai.svg'
 import yellowShape from '../../assets/images/SVG/section 2/SVG/big yellow circle top left.svg'
 import purpleCircle from '../../assets/images/SVG/section 2/SVG/circle puple left buttom corner.svg'
@@ -85,8 +86,50 @@ function IdentityTicket() {
 }
 
 export default function SectionTwo() {
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return undefined
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let animationFrame = null
+
+    const updateCard = () => {
+      animationFrame = null
+
+      if (reducedMotion.matches) {
+        section.style.setProperty('--ticket-progress', '1')
+        return
+      }
+
+      const sectionTop = section.getBoundingClientRect().top
+      const viewportHeight = window.innerHeight
+      const start = viewportHeight * 1.08
+      const finish = viewportHeight * .08
+      const progress = Math.min(1, Math.max(0, (start - sectionTop) / (start - finish)))
+      section.style.setProperty('--ticket-progress', progress.toFixed(4))
+    }
+
+    const requestUpdate = () => {
+      if (animationFrame === null) animationFrame = window.requestAnimationFrame(updateCard)
+    }
+
+    updateCard()
+    window.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('resize', requestUpdate)
+    reducedMotion.addEventListener('change', requestUpdate)
+
+    return () => {
+      if (animationFrame !== null) window.cancelAnimationFrame(animationFrame)
+      window.removeEventListener('scroll', requestUpdate)
+      window.removeEventListener('resize', requestUpdate)
+      reducedMotion.removeEventListener('change', requestUpdate)
+    }
+  }, [])
+
   return (
-    <section id="profile" className="section-two" aria-labelledby="profile-heading">
+    <section ref={sectionRef} id="profile" className="section-two" aria-labelledby="profile-heading">
       <h2 id="profile-heading" className="visually-hidden">Designer and developer profile</h2>
       <div className="section-two__canvas">
         <BackgroundCollage />

@@ -413,6 +413,13 @@ button { font: inherit; }
     font-size: 2.05rem;
   }
   .comic-sticker { padding: 7px 10px 9px; font-size: clamp(1.75rem, 9vw, 2.25rem); filter: drop-shadow(-6px -5px 0 #080708) drop-shadow(6px 6px 0 #080708); }
+  .comic-sticker.comic-sticker--portfolio {
+    width: 180px;
+    min-width: 180px;
+    padding: 7px 8px 9px;
+    font-size: clamp(1.65rem, 7.2vw, 1.9rem);
+    letter-spacing: -.02em;
+  }
   .year-badge { bottom: 17%; left: 3%; width: 66px; min-height: 122px; font-size: 3.15rem; }
   .halftone--left { bottom: 8%; left: -14%; width: 64vw; }
   .halftone--right { top: -8%; right: -34%; width: 66vw; }

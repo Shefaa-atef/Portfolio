@@ -30,15 +30,25 @@
 
 .loading-screen--reveal .loading-screen__spider-curtain {
   animation:
-    spider-page-reveal 5.2s cubic-bezier(.65, 0, 1, .2) forwards,
-    white-surroundings-fade 5.2s linear forwards;
+    spider-page-reveal 3.8s cubic-bezier(.4, 0, .2, 1) forwards,
+    white-surroundings-fade .9s ease-out 1.15s forwards;
 }
 
 @keyframes spider-page-reveal {
   0%,
-  15% {
+  5% {
     -webkit-mask-size: 100% 100%, auto var(--loader-spider-start);
     mask-size: 100% 100%, auto var(--loader-spider-start);
+  }
+
+  35% {
+    -webkit-mask-size: 100% 100%, auto 80vmin;
+    mask-size: 100% 100%, auto 80vmin;
+  }
+
+  68% {
+    -webkit-mask-size: 100% 100%, auto 180vmax;
+    mask-size: 100% 100%, auto 180vmax;
   }
 
   100% {
@@ -49,16 +59,16 @@
 
 @keyframes white-surroundings-fade {
   0%,
-  45% {
+  14% {
     opacity: 1;
   }
 
-  70% {
-    opacity: .72;
+  45% {
+    opacity: .58;
   }
 
-  85% {
-    opacity: .26;
+  72% {
+    opacity: .12;
   }
 
   100% {

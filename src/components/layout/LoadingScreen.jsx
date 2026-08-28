@@ -22,7 +22,7 @@ function LoadingScreen({ onComplete }) {
         hasFinished.current = true
         onComplete()
       }
-    }, 6200)
+    }, 4500)
 
     return () => {
       window.cancelAnimationFrame(firstFrameId)
