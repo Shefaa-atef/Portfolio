@@ -1,0 +1,10 @@
+/* Make native text selection transparent so original text/background colors are preserved under the custom inverted-selection filter overlay */
+::selection {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+::-moz-selection {
+  background-color: transparent !important;
+  color: inherit !important;
+}
