@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Might Makes Right';
+  src: url('../../src/assets/fonts/Might Makes Right BB.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Might Makes Right';
+  src: url('../../src/assets/fonts/Might Makes Right BB Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Might Makes Right';
+  src: url('../../src/assets/fonts/Might Makes Right BB Bold Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #000;
+  overflow-x: hidden;
+}
+
+:root {
+  --ink-purple: #74128f;
+  --ink-purple-dark: #4b0b5c;
+  --ink-blue: #159fc5;
+  --ink-pink: #e999cf;
+}
+
+/* Match the main portfolio's inverted text-selection interaction. */
+::selection {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+::-moz-selection {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.font-comic { font-family: 'Bangers', cursive; letter-spacing: 0.04em; }
+.font-marker { font-family: 'Permanent Marker', cursive; }
+.font-bb { font-family: 'Might Makes Right', cursive; font-style: italic; }
+
+/* Compact fixed return badge, styled after the main portfolio's dotted comic boxes. */
+.cv-return {
+  position: fixed;
+  z-index: 100;
+  top: 72px;
+  left: 16px;
+  display: inline-flex;
+  min-width: 82px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 5px 12px 4px;
+  border: 2px solid #000;
+  background:
+    radial-gradient(circle, rgb(59 7 74 / .62) 0 1px, transparent 1.2px) 0 0 / 5px 5px,
+    var(--ink-purple);
+  box-shadow: inset 0 0 0 2px #fff, 4px 4px 0 #000;
+  color: #fff;
+  font-family: 'Bangers', cursive;
+  font-size: 17px;
+  letter-spacing: .08em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transform: rotate(-1deg);
+  transition: color 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+}
+
+.cv-return__arrow {
+  font-family: Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.cv-return:hover {
+  box-shadow: inset 0 0 0 2px #fff, 2px 2px 0 #000;
+  color: #fff;
+  transform: translate(2px, 2px) rotate(1deg);
+}
+
+.cv-return:focus-visible {
+  outline: 3px solid var(--ink-purple);
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .cv-return {
+    top: 66px;
+    left: 10px;
+    min-width: 72px;
+    height: 34px;
+    padding-inline: 10px;
+    font-size: 15px;
+  }
+}
+
+/* Keep the comic contrast while allowing the local purple, blue, and pink artwork through. */
+.photo-bw {
+  filter: saturate(.78) contrast(1.24) brightness(.88);
+}
+
+/* Halftone dot pattern */
+.halftone {
+  background-image: radial-gradient(circle, #000 1.2px, transparent 1.2px);
+  background-size: 7px 7px;
+}
+
+/* Comic panel border */
+.panel { border: 3px solid #000; }
+.panel-thick { border: 4px solid #000; }
+
+/* Hard offset shadow */
+.shadow-ink      { box-shadow:  5px  5px 0 #000; }
+.shadow-ink-lg   { box-shadow:  8px  8px 0 #000; }
+.shadow-ink-xl   { box-shadow: 12px 12px 0 #000; }
+.shadow-ink-w    { box-shadow:  6px  6px 0 rgba(255,255,255,0.5); }
+
+/* Speech bubble — tail bottom-left */
+.bubble {
+  position: relative;
+  border: 3px solid var(--ink-purple);
+  background: #fff;
+}
+.bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -22px; left: 32px;
+  border: 11px solid transparent;
+  border-top: 22px solid var(--ink-purple);
+}
+.bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -15px; left: 35px;
+  border: 8px solid transparent;
+  border-top: 16px solid #fff;
+  z-index: 1;
+}
+
+.bg-purple  { background-color: var(--ink-purple); }
+.text-purple { color: var(--ink-purple); }
+.border-purple { border-color: var(--ink-purple); }
+
+/* Scrollbar */
+::-webkit-scrollbar { display: none; }
+* { scrollbar-width: none; box-sizing: border-box; }
+
+/* ── SUPERHERO ANIMATIONS ── */
+
+/* Panel slams in from below with a thud */
+@keyframes panel-slam {
+  0%   { opacity: 0; transform: translateY(60px) rotate(-1deg); }
+  60%  { transform: translateY(-8px) rotate(0.4deg); }
+  80%  { transform: translateY(4px) rotate(-0.2deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+/* Slide in from the left */
+@keyframes slam-left {
+  0%   { opacity: 0; transform: translateX(-80px) skewX(-3deg); }
+  65%  { transform: translateX(10px) skewX(1deg); }
+  100% { opacity: 1; transform: translateX(0) skewX(0); }
+}
+
+/* Slide in from the right */
+@keyframes slam-right {
+  0%   { opacity: 0; transform: translateX(80px) skewX(3deg); }
+  65%  { transform: translateX(-10px) skewX(-1deg); }
+  100% { opacity: 1; transform: translateX(0) skewX(0); }
+}
+
+/* Explosive scale-in for starbursts / badges */
+@keyframes kaboom {
+  0%   { opacity: 0; transform: scale(0) rotate(-30deg); }
+  55%  { transform: scale(1.2) rotate(6deg); }
+  75%  { transform: scale(0.93) rotate(-3deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* Starburst idle spin-pulse */
+@keyframes burst-pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50%       { transform: scale(1.08) rotate(8deg); }
+}
+
+/* Speed lines radiate outward */
+@keyframes speed-lines {
+  0%   { opacity: 0.6; transform: scale(0.85); }
+  100% { opacity: 0;   transform: scale(1.5); }
+}
+
+/* Ink-stamp: squish then settle */
+@keyframes ink-stamp {
+  0%   { opacity: 0; transform: scaleY(0) scaleX(1.3); }
+  50%  { transform: scaleY(1.12) scaleX(0.94); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Rumble / vibration */
+@keyframes rumble {
+  0%,100% { transform: translate(0,0) rotate(0deg); }
+  20%     { transform: translate(-3px, 1px) rotate(-0.5deg); }
+  40%     { transform: translate(3px,-1px) rotate(0.5deg); }
+  60%     { transform: translate(-2px, 2px) rotate(-0.3deg); }
+  80%     { transform: translate(2px,-2px) rotate(0.3deg); }
+}
+
+/* Hero title letters drop in */
+@keyframes letter-drop {
+  0%   { opacity: 0; transform: translateY(-50px) scaleY(1.4); }
+  60%  { transform: translateY(6px) scaleY(0.9); }
+  100% { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+/* Purple border pulse */
+@keyframes border-flash {
+  0%,100% { box-shadow: 5px 5px 0 #000; }
+  50%      { box-shadow: 5px 5px 0 var(--ink-purple), 0 0 0 3px var(--ink-purple); }
+}
+
+/* Horizontal scan line wipe */
+@keyframes wipe-in {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0% 0 0); }
+}
+
+/* Float up/down for decoration */
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* Action word pop */
+@keyframes action-pop {
+  0%   { opacity: 0; transform: scale(0.4) rotate(-15deg); }
+  60%  { transform: scale(1.15) rotate(4deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* ── UTILITY CLASSES ── */
+
+.anim-slam        { animation: panel-slam  0.55s cubic-bezier(0.22,1,0.36,1) both; }
+.anim-slam-left   { animation: slam-left   0.5s  cubic-bezier(0.22,1,0.36,1) both; }
+.anim-slam-right  { animation: slam-right  0.5s  cubic-bezier(0.22,1,0.36,1) both; }
+.anim-kaboom      { animation: kaboom      0.6s  cubic-bezier(0.22,1,0.36,1) both; }
+.anim-stamp       { animation: ink-stamp   0.45s cubic-bezier(0.22,1,0.36,1) both; }
+.anim-wipe        { animation: wipe-in     0.5s  ease-out both; }
+.anim-action      { animation: action-pop  0.5s  cubic-bezier(0.22,1,0.36,1) both; }
+
+/* Starburst always pulses */
+.burst-idle { animation: burst-pulse 3s ease-in-out infinite; }
+
+/* Hover rumble on cards */
+.hover-rumble:hover { animation: rumble 0.35s linear; }
+
+/* Speed lines element */
+.speed-ring {
+  position: absolute; inset: -20px;
+  border-radius: 50%;
+  border: 3px solid var(--ink-purple);
+  animation: speed-lines 1.2s ease-out infinite;
+  pointer-events: none;
+}
+
+/* Hover lift with shadow slam */
+.hover-lift {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.hover-lift:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 #000;
+}
+.hover-lift-purple:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 var(--ink-purple);
+}
+
+/* Skill tag zap on hover */
+.tag-zap {
+  transition: background 0.1s, color 0.1s, transform 0.1s;
+}
+.tag-zap:hover {
+  background: var(--ink-purple) !important;
+  color: #fff !important;
+  border-color: var(--ink-purple) !important;
+  transform: skewX(-4deg) scale(1.06);
+}
+
+/* Float decoration */
+.float-anim { animation: float 4s ease-in-out infinite; }
+.float-anim-slow { animation: float 6s ease-in-out infinite; }

@@ -1,0 +1,14 @@
+{
+  "title": "Comic-Book CV Website Redesign",
+  "description": "Showcase your professional journey as a striking black-and-white comic-book CV, blending design and development skills in a unique, engaging format.",
+  "icons": {
+    "icon": "/favicon.svg"
+  },
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

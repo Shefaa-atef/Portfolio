@@ -5,6 +5,7 @@ import LoadingScreen from './components/layout/LoadingScreen.jsx'
 import Hero from './sections/Hero/Hero.jsx'
 import SectionTwo from './sections/SectionTwo/SectionTwo.jsx'
 import SectionThree from './sections/SectionThree/SectionThree.jsx'
+import Contact from './sections/Contact/Contact.jsx'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -17,6 +18,7 @@ function App() {
         <Hero isReady={!isLoading} />
         <SectionTwo />
         <SectionThree />
+        <Contact />
       </main>
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
     </>

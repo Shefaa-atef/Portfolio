@@ -1,0 +1,357 @@
+@font-face {
+  font-family: 'Comic Roasting';
+  src: url('../../assets/fonts/Comic Roasting.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Might Makes Right';
+  src: url('../../assets/fonts/Might Makes Right BB Bold Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+.contact {
+  --contact-purple: var(--comic-purple, #74128f);
+  --contact-accent: #c650e5;
+  --contact-purple-deep: #3b074a;
+  --contact-scale: min(1, calc(100vw / 1440px));
+  --shared-web-size: clamp(320px, max(32vw, 48svh), 680px);
+  position: relative;
+  width: 100%;
+  height: calc(1024px * var(--contact-scale));
+  min-height: 0;
+  overflow: hidden;
+  background: #000;
+  color: #fcfcfc;
+}
+
+.contact__webs {
+  position: absolute;
+  z-index: 1;
+  top: calc(var(--shared-web-size) * -.67);
+  left: 0;
+  display: block;
+  width: var(--shared-web-size);
+  max-width: none;
+  opacity: .75;
+  pointer-events: none;
+  user-select: none;
+  transform: translateX(-30%);
+}
+
+.contact__scale-frame {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: calc(1440px * var(--contact-scale));
+  height: calc(1024px * var(--contact-scale));
+  transform: translate(-50%, -50%);
+}
+
+.contact__stage {
+  position: relative;
+  width: 1440px;
+  height: 1024px;
+  background: transparent;
+  transform: scale(var(--contact-scale));
+  transform-origin: top left;
+}
+
+.contact__title {
+  position: absolute;
+  z-index: 10;
+  top: 289.23px;
+  left: 50%;
+  width: 526px;
+  margin: 0;
+  color: #fff;
+  font-family: 'Comic Roasting', 'Comic Sans MS', cursive;
+  font-size: 139px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 168px;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.contact__social {
+  position: absolute;
+  display: block;
+  width: 516.12px;
+  height: 644.92px;
+  color: #fcfcfc;
+  text-decoration: none;
+  outline: none;
+}
+
+.contact__social img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  transition: filter 220ms ease, transform 260ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.contact__social span,
+.contact__detail {
+  position: absolute;
+  z-index: 12;
+  color: #fcfcfc;
+  font-family: 'Might Makes Right', 'Comic Sans MS', cursive;
+  font-size: 39.75px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 48px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.contact__social span {
+  transition: color 180ms ease, text-shadow 180ms ease, transform 180ms ease;
+}
+
+.contact__social:hover img,
+.contact__social:focus-visible img {
+  filter: brightness(1.18) saturate(1.15) drop-shadow(0 0 18px rgb(198 80 229 / .5));
+  transform: translateY(-10px) scale(1.015);
+}
+
+.contact__social:hover span,
+.contact__social:focus-visible span {
+  color: var(--contact-accent);
+  text-shadow: 3px 3px 0 var(--contact-purple-deep);
+}
+
+.contact__social--linkedin:hover span,
+.contact__social--linkedin:focus-visible span {
+  transform: translate(-50%, -3px);
+}
+
+.contact__social:focus-visible::after,
+.contact__detail:focus-visible {
+  outline: 4px solid var(--contact-accent);
+  outline-offset: 6px;
+}
+
+.contact__social--linkedin {
+  z-index: 3;
+  top: 13.16px;
+  left: calc(50% - 258.06px + 13.26px);
+}
+
+.contact__social--linkedin span {
+  top: 183.18px;
+  left: 50%;
+  width: 251px;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.contact__social--behance {
+  z-index: 2;
+  top: 141px;
+  right: 84.76px;
+}
+
+.contact__social--behance span {
+  top: 235.96px;
+  right: 31.9px;
+  width: 291px;
+  text-align: center;
+}
+
+.contact__social--github {
+  z-index: 4;
+  top: 157.25px;
+  left: 56.75px;
+}
+
+.contact__social--github span {
+  top: 209px;
+  left: 65.61px;
+  width: 286px;
+  font-size: 40px;
+  text-align: center;
+}
+
+.contact__details {
+  position: absolute;
+  z-index: 20;
+  top: 817px;
+  left: 50%;
+  display: grid;
+  width: 920px;
+  grid-template-columns: 1.35fr .85fr;
+  gap: 22px;
+  transform: translateX(-50%) rotate(-.35deg);
+}
+
+.contact__detail {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 94px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 22px 15px;
+  border: 4px solid #fcfcfc;
+  background:
+    radial-gradient(circle, rgb(59 7 74 / .55) 0 1.2px, transparent 1.35px) 0 0 / 5px 5px,
+    var(--contact-purple);
+  box-shadow: 9px 9px 0 var(--contact-accent);
+  color: #fff;
+  font-size: 34px;
+  line-height: 1;
+  text-align: center;
+  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.contact__detail:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.contact__detail-label {
+  position: absolute;
+  top: -20px;
+  left: 18px;
+  padding: 5px 12px 4px;
+  background: var(--contact-accent);
+  color: #fff;
+  font-size: 23px;
+  line-height: 1;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+
+.contact__detail:hover,
+.contact__detail:focus-visible {
+  background-color: #fff;
+  box-shadow: 5px 5px 0 var(--contact-purple-deep);
+  color: var(--contact-accent);
+  transform: translate(4px, 4px) rotate(.5deg);
+}
+
+.contact__detail:hover .contact__detail-label,
+.contact__detail:focus-visible .contact__detail-label {
+  color: #160a19;
+}
+
+@media (max-width: 700px) {
+  .contact {
+    --shared-web-size: max(480px, 55svh);
+    height: 100svh;
+    min-height: 720px;
+  }
+
+  .contact__webs {
+    top: calc(var(--shared-web-size) * -.6);
+    transform: translateX(-38%);
+  }
+
+  .contact__scale-frame,
+  .contact__stage {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: none;
+  }
+
+  .contact__title {
+    top: 44%;
+    width: 100%;
+    font-size: clamp(68px, 22vw, 90px);
+    line-height: .85;
+  }
+
+  .contact__social {
+    width: min(76vw, 310px);
+    height: auto;
+    aspect-ratio: 516.12 / 644.92;
+  }
+
+  .contact__social span {
+    font-size: clamp(24px, 8vw, 34px);
+    line-height: 1;
+  }
+
+  .contact__social--linkedin {
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .contact__social--linkedin span {
+    top: 28.4%;
+  }
+
+  .contact__social--github {
+    top: 30%;
+    left: -20%;
+  }
+
+  .contact__social--github span {
+    top: 63%;
+    left: 30%;
+    width: auto;
+  }
+
+  .contact__social--behance {
+    top: 30%;
+    right: -20%;
+  }
+
+  .contact__social--behance span {
+    top: 76%;
+    right: 30%;
+    width: auto;
+  }
+
+  .contact__details {
+    top: auto;
+    bottom: 4.5%;
+    width: calc(100% - 32px);
+    grid-template-columns: 1fr;
+    gap: 18px;
+    transform: translateX(-50%);
+  }
+
+  .contact__detail {
+    height: 58px;
+    padding: 12px 12px 8px;
+    border-width: 3px;
+    box-shadow: 6px 6px 0 var(--contact-accent);
+    font-size: clamp(24px, 7.2vw, 31px);
+  }
+
+  .contact__detail:nth-child(2) {
+    transform: none;
+  }
+
+  .contact__detail-label {
+    top: -13px;
+    left: 10px;
+    padding: 3px 8px 2px;
+    font-size: 16px;
+  }
+
+  .contact__detail:first-child .contact__detail-value {
+    font-size: clamp(19px, 5.5vw, 22px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact__social img,
+  .contact__social span,
+  .contact__detail {
+    transition: none;
+  }
+}

@@ -13,7 +13,7 @@ const PORTFOLIO_PAGES = [
     label: 'Open the About Me portfolio page',
     image: aboutPage,
     className: 'section-three__page--about',
-    destination: null, // TODO: Replace with the About page route when it is available.
+    destination: '/about/',
   },
   {
     id: 'projects',
