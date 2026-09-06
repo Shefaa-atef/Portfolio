@@ -13,15 +13,15 @@ const DesignsPage = lazy(() => import('./pages/Designs/DesignsPage.tsx'))
 const ProjectsPage = lazy(() => import('./sections/Projects/Projects.jsx'))
 
 function isAboutRoute() {
-  return window.location.pathname.replace(/\/+$/, '') === '/about'
+  return window.location.pathname.replace(/\/+$/, '') === `${import.meta.env.BASE_URL}about`
 }
 
 function isDesignsRoute() {
-  return window.location.pathname.replace(/\/+$/, '') === '/designs'
+  return window.location.pathname.replace(/\/+$/, '') === `${import.meta.env.BASE_URL}designs`
 }
 
 function isProjectsRoute() {
-  return window.location.pathname.replace(/\/+$/, '') === '/projects'
+  return window.location.pathname.replace(/\/+$/, '') === `${import.meta.env.BASE_URL}projects`
 }
 
 function HomePage() {

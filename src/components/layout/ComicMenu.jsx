@@ -85,16 +85,17 @@ export default function ComicMenu({ isOpen, onClose }) {
   const handleNavClick = (item) => {
     onClose()
     if (item.isExternalRoute) {
-      if (window.location.pathname.replace(/\/+$/, '') === item.route.replace(/\/+$/, '')) {
+      const route = `${import.meta.env.BASE_URL}${item.route.slice(1)}`
+      if (window.location.pathname.replace(/\/+$/, '') === route.replace(/\/+$/, '')) {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
-        window.location.assign(item.route)
+        window.location.assign(route)
       }
       return
     }
 
-    if (window.location.pathname.replace(/\/+$/, '') !== '') {
-      window.location.assign(`/#${item.target}`)
+    if (window.location.pathname.replace(/\/+$/, '') !== import.meta.env.BASE_URL.replace(/\/+$/, '')) {
+      window.location.assign(`${import.meta.env.BASE_URL}#${item.target}`)
       return
     }
 

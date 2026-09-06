@@ -34,7 +34,7 @@ const PORTFOLIO_PAGES = [
 function PortfolioPage({ page, isSelected, onSelect }) {
   const handleClick = () => {
     onSelect((prev) => (prev === page.id ? null : page.id))
-    if (page.destination) window.location.assign(page.destination)
+    if (page.destination) window.location.assign(`${import.meta.env.BASE_URL}${page.destination.slice(1)}`)
   }
 
   return (

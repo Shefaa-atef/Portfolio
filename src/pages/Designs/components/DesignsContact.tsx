@@ -6,7 +6,7 @@ export default function DesignsContact() {
       <span>Next chapter?</span>
       <h2>Let’s build something.</h2>
       <a href="mailto:shefaalhendi@gmail.com">Get in touch ↗</a>
-      <a href="/#projects">View UI/UX Projects →</a>
+      <a href={`${import.meta.env.BASE_URL}#projects`}>View UI/UX Projects →</a>
     </footer>
   );
 }

@@ -22,7 +22,7 @@ export default function AboutPage() {
 
       <a
         className="cv-return"
-        href="/"
+        href={import.meta.env.BASE_URL}
         aria-label="Return to the main portfolio"
       >
         <span className="cv-return__arrow" aria-hidden="true">←</span>
