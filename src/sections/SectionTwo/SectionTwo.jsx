@@ -2,21 +2,21 @@ import { useEffect, useRef } from 'react'
 import aiLogo from '../../assets/images/SVG/section 2/SVG/ai.svg'
 import yellowShape from '../../assets/images/SVG/section 2/SVG/big yellow circle top left.svg'
 import purpleCircle from '../../assets/images/SVG/section 2/SVG/circle puple left buttom corner.svg'
-import cityBuildings from '../../assets/images/SVG/section 2/SVG/city buildings.svg'
+import cityBuildings from '../../assets/generated/city.svg'
 import halftoneDots from '../../assets/images/SVG/section 2/SVG/dots halftone left buttom corner.svg'
 import drawingLineOne from '../../assets/images/SVG/section 2/SVG/drawing line 1.svg'
 import drawingLineTwo from '../../assets/images/SVG/section 2/SVG/drawing line 2.svg'
 import figmaLogo from '../../assets/images/SVG/section 2/SVG/figma logo.svg'
 import flutterLogo from '../../assets/images/SVG/section 2/SVG/flutter logo.svg'
-import hijabiHacker from '../../assets/images/SVG/section 2/SVG/hijabi hacker.svg'
+import hijabiHacker from '../../assets/generated/hacker.svg'
 import mainCard from '../../assets/images/SVG/section 2/SVG/main card.svg'
 import pinkPaint from '../../assets/images/SVG/section 2/SVG/paint pink buttom left.svg'
 import reactLogo from '../../assets/images/SVG/section 2/SVG/react logo.svg'
 import smallYellowCircle from '../../assets/images/SVG/section 2/SVG/small yellow circle.svg'
 import smallYellowCircleTwo from '../../assets/images/SVG/section 2/SVG/small yellow circle 2.svg'
 import blueSplash from '../../assets/images/SVG/section 2/SVG/splash blue buttom right.svg'
-import uiArtwork from '../../assets/images/SVG/section 2/SVG/ui.svg'
-import uxArtwork from '../../assets/images/SVG/section 2/SVG/ux.svg'
+import uiArtwork from '../../assets/generated/ui.svg'
+import uxArtwork from '../../assets/generated/ux.svg'
 import './SectionTwo.css'
 
 function CollageImage({ className, src, width, height, eager = false }) {
@@ -53,7 +53,7 @@ function BackgroundCollage() {
 function FloatingDoodles() {
   return (
     <div className="section-two__doodles" aria-hidden="true">
-      <CollageImage className="section-two__hacker" src={hijabiHacker} width="592" height="740" eager />
+      <CollageImage className="section-two__hacker" src={hijabiHacker} width="592" height="740" />
       <CollageImage className="section-two__yellow-dot section-two__yellow-dot--large" src={smallYellowCircle} width="52" height="52" />
       <CollageImage className="section-two__yellow-dot section-two__yellow-dot--small" src={smallYellowCircleTwo} width="37" height="37" />
       <CollageImage className="section-two__line section-two__line--one" src={drawingLineOne} width="72" height="152" />
@@ -74,7 +74,7 @@ function IdentityTicket() {
         alt="UI/UX designer, front-end and mobile developer — Computer Science graduate"
         draggable="false"
         decoding="async"
-        loading="eager"
+        loading="lazy"
         width="1193"
         height="863"
       />

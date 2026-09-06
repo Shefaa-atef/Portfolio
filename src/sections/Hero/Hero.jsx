@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
-import comicOne from '../../assets/images/SVG/section 1/SVG/comic 1.svg'
+import comicOne from '../../assets/generated/comic-one.svg'
 import comicTwo from '../../assets/images/photos/section 1/Super Programmer_ Code, Design, Impact.webp'
-import comicThree from '../../assets/images/SVG/section 1/SVG/comic 3.optimized.svg'
-import mainComic from '../../assets/images/SVG/section 1/SVG/COMIC 4.svg'
+import comicThree from '../../assets/generated/comic-three.svg'
+import mainComic from '../../assets/generated/comic-four.svg'
 import dotsOne from '../../assets/images/SVG/section 1/SVG/DOT DESIGN 1.svg'
 import dotsTwo from '../../assets/images/SVG/section 1/SVG/DOT DESIGN 2.svg'
 import './Hero.css'
@@ -25,6 +25,8 @@ function MainComicCover() {
       <img
         className="comic-cover comic-cover--main"
         src={mainComic}
+        fetchPriority="high"
+        decoding="async"
         alt="The Amazing Programmer comic-book cover"
         draggable="false"
       />
