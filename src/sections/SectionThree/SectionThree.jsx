@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import aboutPage from '../../assets/images/photos/section 3/about me@3x.png'
-import projectsPage from '../../assets/images/photos/section 3/my projects@3x.png'
-import designsPage from '../../assets/images/photos/section 3/designs@3x.png'
+import aboutPage from '../../assets/images/photos/section 3/about me@3x.webp'
+import projectsPage from '../../assets/images/photos/section 3/my projects@3x.webp'
+import designsPage from '../../assets/images/photos/section 3/designs@3x.webp'
 import dotDesign from '../../assets/images/SVG/section 3/dot design.svg'
 import spiderWebs from '../../assets/images/SVG/section 3/spider webs.svg'
 import spiderLogo from '../../assets/icons/spider.svg'
@@ -20,14 +20,14 @@ const PORTFOLIO_PAGES = [
     label: 'Open the Projects portfolio page',
     image: projectsPage,
     className: 'section-three__page--projects',
-    destination: null, // TODO: Replace with the Projects page route when it is available.
+    destination: '/projects/',
   },
   {
     id: 'designs',
     label: 'Open the Designs portfolio page',
     image: designsPage,
     className: 'section-three__page--designs',
-    destination: null, // TODO: Replace with the Designs page route when it is available.
+    destination: '/designs/',
   },
 ]
 
@@ -54,7 +54,7 @@ export default function SectionThree() {
   const [selectedPage, setSelectedPage] = useState(null)
 
   return (
-    <section id="portfolio-pages" className="section-three" aria-labelledby="portfolio-pages-heading">
+    <section id="projects" className="section-three" aria-labelledby="portfolio-pages-heading">
       <h2 id="portfolio-pages-heading" className="visually-hidden">Explore the portfolio</h2>
 
       <div className="section-three__under-layer">

@@ -1,6 +1,6 @@
-import linkedinArtwork from '../../assets/images/photos/contact/linkedin.png'
-import githubArtwork from '../../assets/images/photos/contact/github.png'
-import behanceArtwork from '../../assets/images/photos/contact/behance.png'
+import linkedinArtwork from '../../assets/images/photos/contact/linkedin.webp'
+import githubArtwork from '../../assets/images/photos/contact/github.webp'
+import behanceArtwork from '../../assets/images/photos/contact/behance.webp'
 import spiderWebs from '../../assets/images/SVG/section 3/spider webs.svg'
 import './Contact.css'
 
@@ -56,9 +56,9 @@ export default function Contact() {
               <span className="contact__detail-label">email me</span>
               <span className="contact__detail-value">shefaalhendi@gmail.com</span>
             </a>
-            <a className="contact__detail" href="tel:787980339">
+            <a className="contact__detail" href="tel:+962787980339">
               <span className="contact__detail-label">call me</span>
-              <span className="contact__detail-value">787980339</span>
+              <span className="contact__detail-value">+962 787980339</span>
             </a>
           </div>
         </div>

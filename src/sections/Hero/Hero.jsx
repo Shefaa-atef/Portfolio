@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 import comicOne from '../../assets/images/SVG/section 1/SVG/comic 1.svg'
-import comicTwo from '../../assets/images/photos/section 1/Super Programmer_ Code, Design, Impact.png'
-import comicThree from '../../assets/images/SVG/section 1/SVG/comic 3.svg'
-import mainComic from '../../assets/images/SVG/section 1/SVG/COMIC 4.svg'
+import comicTwo from '../../assets/images/photos/section 1/Super Programmer_ Code, Design, Impact.webp'
+import comicThree from '../../assets/images/SVG/section 1/SVG/comic 3.optimized.svg'
+import mainComic from '../../assets/images/SVG/section 1/SVG/COMIC 4.optimized.svg'
 import dotsOne from '../../assets/images/SVG/section 1/SVG/DOT DESIGN 1.svg'
 import dotsTwo from '../../assets/images/SVG/section 1/SVG/DOT DESIGN 2.svg'
 import './Hero.css'
@@ -66,14 +66,6 @@ function YearBadge() {
       <span aria-hidden="true">20</span>
       <span aria-hidden="true">26</span>
     </div>
-  )
-}
-
-function ComicMenuButton() {
-  return (
-    <button className="comic-menu" type="button" aria-label="Open menu">
-      <span>Menu</span>
-    </button>
   )
 }
 
@@ -161,6 +153,7 @@ export default function Hero({ isReady = true }) {
 
   return (
     <section
+      id="hero"
       ref={heroRef}
       className={`portfolio-hero${isReady ? ' portfolio-hero--ready' : ''}`}
       aria-labelledby="hero-title"
@@ -173,7 +166,6 @@ export default function Hero({ isReady = true }) {
       <ComicSticker className="comic-sticker--portfolio">Portfolio</ComicSticker>
       <ComicSticker className="comic-sticker--name">Shefa Atef</ComicSticker>
       <YearBadge />
-      <ComicMenuButton />
       <BottomComicBanner />
     </section>
   )

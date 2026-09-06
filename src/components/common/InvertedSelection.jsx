@@ -8,13 +8,13 @@ export default function InvertedSelection() {
       const selection = window.getSelection()
 
       if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
-        setRects([])
+        setRects(previous => previous.length ? [] : previous)
         return
       }
 
       const selectionText = selection.toString()
       if (!selectionText || selectionText.trim() === '') {
-        setRects([])
+        setRects(previous => previous.length ? [] : previous)
         return
       }
 
@@ -33,7 +33,7 @@ export default function InvertedSelection() {
 
         setRects(validRects)
       } catch {
-        setRects([])
+        setRects(previous => previous.length ? [] : previous)
       }
     }
 

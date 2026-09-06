@@ -129,7 +129,7 @@ export default function SectionTwo() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="profile" className="section-two" aria-labelledby="profile-heading">
+    <section ref={sectionRef} id="skills" className="section-two" aria-labelledby="profile-heading">
       <h2 id="profile-heading" className="visually-hidden">Designer and developer profile</h2>
       <div className="section-two__canvas">
         <BackgroundCollage />

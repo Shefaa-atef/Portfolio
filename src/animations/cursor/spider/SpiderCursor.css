@@ -1,7 +1,7 @@
 .spider-web-canvas {
   position: fixed;
   inset: 0;
-  z-index: 9998;
+  z-index: 2147483646;
   pointer-events: none;
 }
 
@@ -9,7 +9,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 2147483647;
   width: 38px;
   height: 38px;
   opacity: 0;
@@ -61,11 +61,10 @@
 @media (pointer: fine) {
   .spider-cursor-active,
   .spider-cursor-active body,
-  .spider-cursor-active a,
-  .spider-cursor-active button,
-  .spider-cursor-active input,
-  .spider-cursor-active textarea,
-  .spider-cursor-active select {
+  .spider-cursor-active *,
+  .spider-cursor-active dialog,
+  .spider-cursor-active dialog *,
+  .spider-cursor-active ::backdrop {
     cursor: none !important;
   }
 }

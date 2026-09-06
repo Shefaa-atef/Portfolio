@@ -1,0 +1,410 @@
+.engagement-section {
+  overflow: hidden;
+  background: #fbf4fc;
+  border-bottom: 4px solid #141116;
+  color: #141116;
+  width: 100%;
+}
+
+.engagement-container {
+  width: 100%;
+}
+
+/* Pack Selector Tabs */
+.engagement-tabs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.engagement-tab {
+  font-family: 'Bangers', Impact, sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 26px;
+  border: 3px solid #141116;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 4px 4px 0 #141116;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.engagement-tab:hover {
+  transform: translateY(-3px);
+  box-shadow: 6px 6px 0 #141116;
+}
+
+.engagement-tab.is-active {
+  background: var(--tab-color);
+  border-width: 3.5px;
+  transform: translateY(-4px);
+  box-shadow: 7px 7px 0 #141116;
+}
+
+.engagement-tab__num {
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 900;
+  background: #141116;
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.engagement-tab__name {
+  text-transform: uppercase;
+}
+
+.engagement-tab__count {
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+/* Central Campaign Studio Stage */
+.engagement-studio {
+  position: relative;
+  display: grid;
+  grid-template-columns: 400px minmax(0, 1fr);
+  gap: 44px;
+  align-items: center;
+  padding: 40px 36px;
+  border: 4px solid #141116;
+  border-radius: 28px;
+  box-shadow: 9px 9px 0 #141116;
+  background: radial-gradient(circle, #14111622 1.2px, transparent 1.5px) 0 0 / 8px 8px, var(--pack-color);
+  transition: background-color 300ms ease;
+  width: 100%;
+}
+
+/* Phone Mockup — Extra Tall & Big */
+.engagement-phone {
+  position: relative;
+  z-index: 2;
+  border: 4px solid #141116;
+  border-radius: 36px;
+  background: #ffffff;
+  padding: 16px 14px 14px;
+  box-shadow: 8px 10px 0 #141116;
+  transform: rotate(-2deg);
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.engagement-phone:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.engagement-phone__speaker {
+  height: 7px;
+  width: 70px;
+  background: #141116;
+  border-radius: 10px;
+  margin: 0 auto 14px;
+}
+
+.engagement-phone__profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.engagement-phone__avatar {
+  background: var(--pack-color);
+  border: 2px solid #141116;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.engagement-phone__meta {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.engagement-phone__meta strong {
+  font-size: 13px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.engagement-phone__meta span {
+  font-size: 11px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.engagement-phone__more {
+  font-size: 14px;
+  color: #666;
+}
+
+.engagement-phone__cover {
+  display: block;
+  width: 100%;
+  border: 3px solid #141116;
+  border-radius: 16px;
+  background: #ffffff;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+}
+
+.engagement-phone__cover img {
+  width: 100%;
+  height: 480px;
+  object-fit: contain;
+  background: #ffffff;
+  display: block;
+}
+
+.engagement-phone__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 12px 6px 4px;
+  color: #141116;
+}
+
+.engagement-phone__home {
+  width: 70px;
+  height: 5px;
+  border-radius: 10px;
+  background: #141116;
+  margin: 10px auto 0;
+}
+
+/* Right Details Section */
+.engagement-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  z-index: 2;
+  min-width: 0;
+  width: 100%;
+}
+
+.engagement-details__header {
+  background: #ffffff;
+  border: 3px solid #141116;
+  border-radius: 18px;
+  padding: 24px 28px;
+  box-shadow: 5px 5px 0 #141116;
+}
+
+.engagement-details__badge {
+  display: inline-block;
+  background: var(--pack-color);
+  border: 2px solid #141116;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  box-shadow: 2.5px 2.5px 0 #141116;
+}
+
+.engagement-details__header h2 {
+  font-family: 'Bangers', Impact, sans-serif;
+  font-size: clamp(30px, 3.8vw, 46px);
+  margin: 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.engagement-details__desc {
+  font-size: 15px;
+  font-weight: 600;
+  color: #4a424e;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Artwork Stream */
+.engagement-details__stream {
+  background: #ffffff;
+  border: 3px solid #141116;
+  border-radius: 18px;
+  padding: 22px 24px;
+  box-shadow: 5px 5px 0 #141116;
+  min-width: 0;
+}
+
+.engagement-details__rail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+  color: #4a424e;
+}
+
+.engagement-details__counter {
+  font-family: 'Bangers', Impact, sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  color: #141116;
+  background: var(--pack-color);
+  border: 2px solid #141116;
+  padding: 3px 12px;
+  border-radius: 6px;
+}
+
+.engagement-rail {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  overflow-x: auto;
+  padding: 10px 4px 16px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: #141116 transparent;
+  width: 100%;
+}
+
+.engagement-post {
+  flex: 0 0 250px;
+  width: 250px;
+  height: 250px;
+  position: relative;
+  border: 3.5px solid #141116;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 5px 5px 0 #141116;
+  overflow: hidden;
+  cursor: pointer;
+  scroll-snap-align: start;
+  padding: 0;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.engagement-post img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #ffffff;
+  display: block;
+}
+
+.engagement-post__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #141116;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 900;
+  font-family: monospace;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid #ffffff;
+  z-index: 2;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.engagement-post:hover {
+  transform: translateY(-5px);
+  box-shadow: 7px 9px 0 #141116;
+}
+
+.engagement-post.is-active {
+  transform: translateY(-7px) scale(1.02);
+  box-shadow: 8px 11px 0 #141116;
+  border-color: #141116;
+  outline: 3.5px solid var(--pack-color);
+}
+
+.engagement-post.is-active .engagement-post__badge {
+  background: var(--pack-color);
+  color: #141116;
+  border-color: #141116;
+}
+
+/* Artwork High-Res Dialog */
+.engagement-preview {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: fit-content;
+  max-width: 94vw;
+  max-height: 94dvh;
+  padding: 52px 14px 14px;
+  background: #fffdfa;
+  border: 3.5px solid #141116;
+  box-shadow: 10px 10px #74128f;
+}
+
+.engagement-preview::backdrop {
+  background: #141116de;
+}
+
+.engagement-preview > img {
+  max-height: calc(94dvh - 80px);
+  max-width: 85vw;
+  object-fit: contain;
+  display: block;
+}
+
+.engagement-preview__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  padding: 5px 12px;
+  border: 2px solid #141116;
+  background: #ffcc00;
+  color: #141116;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* Mobile Responsive */
+@media (max-width: 960px) {
+  .engagement-studio {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 24px 18px;
+  }
+  .engagement-phone {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .engagement-phone__cover img {
+    height: 380px;
+  }
+  .engagement-post {
+    flex: 0 0 200px;
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .engagement-post,
+  .engagement-phone,
+  .engagement-tab {
+    transition: none;
+  }
+}

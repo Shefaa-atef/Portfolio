@@ -28,10 +28,14 @@
   will-change: opacity, mask-size;
 }
 
+.loading-screen--dark .loading-screen__spider-curtain {
+  background: #000;
+}
+
 .loading-screen--reveal .loading-screen__spider-curtain {
   animation:
-    spider-page-reveal 3.8s cubic-bezier(.4, 0, .2, 1) forwards,
-    white-surroundings-fade .9s ease-out 1.15s forwards;
+    spider-page-reveal .75s cubic-bezier(.4, 0, .2, 1) forwards,
+    white-surroundings-fade .35s ease-out .2s forwards;
 }
 
 @keyframes spider-page-reveal {

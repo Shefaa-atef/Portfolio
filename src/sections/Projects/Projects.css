@@ -1,0 +1,342 @@
+.projects-page {
+  background: #faf7f0;
+  color: #17121b;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.projects-page * {
+  box-sizing: border-box;
+}
+
+.projects-hero {
+  padding: 40px max(6vw, 24px) 0;
+  border-bottom: 3px solid #17121b;
+  background: radial-gradient(circle, #74128f18 1px, transparent 1.5px) 0 0 / 8px 8px, #faf7f0;
+}
+
+.projects-hero__eyebrow {
+  font-family: 'Might Makes Right', cursive;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-weight: 700;
+}
+
+.projects-hero h1 {
+  font-family: 'Bazinga', 'Bangers', fantasy;
+  font-size: clamp(56px, 9vw, 130px);
+  line-height: .95;
+  margin: 20px 0;
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  font-weight: 400;
+}
+
+.projects-hero h1 span {
+  color: #74128f;
+}
+
+.projects-hero__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.projects-hero__bottom p {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+  color: #333;
+}
+
+.projects-hero__note {
+  font-family: 'Might Makes Right', cursive;
+  font-style: italic;
+  background: #ffcc00;
+  padding: 12px 18px;
+  border: 2px solid #17121b;
+  box-shadow: 4px 4px #17121b;
+  transform: rotate(-1.5deg);
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.projects-hero nav {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border: 2px solid #17121b;
+  border-bottom: 0;
+  background: #faf7f0;
+  font-family: 'Bazinga', 'Bangers', fantasy;
+}
+
+.projects-hero nav a {
+  padding: 16px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: inherit;
+  text-decoration: none;
+  font-size: 19px;
+  font-weight: 400;
+  border-right: 2px solid #17121b;
+  transition: background 0.15s ease;
+}
+
+.projects-hero nav a:last-child {
+  border-right: 0;
+}
+
+.projects-hero nav a span:first-child {
+  font-size: 14px;
+  color: #74128f;
+}
+
+.projects-hero nav a span:last-child {
+  margin-left: auto;
+}
+
+.projects-hero nav a:hover {
+  background: #ffcc00;
+}
+
+.projects-list {
+  max-width: 1600px;
+  margin: auto;
+  padding: 64px max(4vw, 20px);
+  display: grid;
+  gap: 64px;
+}
+
+.project-panel {
+  display: grid;
+  grid-template-columns: minmax(270px, .8fr) minmax(0, 1.4fr);
+  border: 3px solid #17121b;
+  background: #fffdf9;
+  box-shadow: 8px 8px #17121b;
+  scroll-margin-top: 30px;
+}
+
+.project-panel__info {
+  padding: clamp(24px, 3vw, 44px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-right: 3px solid #17121b;
+}
+
+.project-panel__meta {
+  font-family: 'Might Makes Right', cursive;
+  font-style: italic;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.project-panel h2 {
+  font-family: 'Bazinga', 'Bangers', fantasy;
+  font-size: clamp(38px, 4.2vw, 66px);
+  line-height: 1.05;
+  margin: 20px 0 8px;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* Crisp non-pixelated subtitle font */
+.project-panel h3 {
+  font-family: 'Bazinga', 'Bangers', sans-serif;
+  font-size: clamp(18px, 1.8vw, 24px);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  line-height: 1.3;
+  margin: 0;
+  color: #74128f;
+  font-weight: 400;
+}
+
+.project-panel__info p {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+  margin: 20px 0;
+}
+
+.project-panel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+}
+
+.project-panel__tags li {
+  font-family: 'Might Makes Right', cursive;
+  font-style: italic;
+  border: 1.5px solid #17121b;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--project-accent);
+  box-shadow: 2px 2px #000;
+  text-transform: uppercase;
+}
+
+.project-panel__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.project-panel__links a {
+  font-family: 'Bazinga', 'Bangers', fantasy;
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 16px;
+  color: #fff;
+  background: #17121b;
+  border: 2px solid #17121b;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.project-panel__links a:hover {
+  background: #ffcc00;
+  color: #17121b;
+  box-shadow: 3px 3px #17121b;
+}
+
+.project-panel__visual {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(16px, 2.5vw, 40px);
+  background: radial-gradient(circle, #17121b30 1px, transparent 1.5px) 0 0 / 7px 7px, var(--project-accent);
+}
+
+@property --lens-x { syntax: '<length-percentage>'; inherits: true; initial-value: 50%; }
+@property --lens-y { syntax: '<length-percentage>'; inherits: true; initial-value: 50%; }
+
+/* Ultra-fast instant mouse lens tracking transition (0ms lag) */
+.project-reveal {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1672 / 941;
+  border: 2px solid #17121b;
+  box-shadow: 5px 5px #17121b;
+  overflow: hidden;
+  --lens-x: 50%;
+  --lens-y: 50%;
+  --lens-radius: clamp(58px, 6.5vw, 100px);
+  transition: none !important;
+}
+
+.project-reveal img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+
+.project-reveal .project-reveal__second {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-mask-image: radial-gradient(circle var(--lens-radius) at var(--lens-x) var(--lens-y), #000 0%, #000 28%, rgb(0 0 0 / .88) 45%, rgb(0 0 0 / .5) 65%, rgb(0 0 0 / .15) 84%, transparent 100%);
+  mask-image: radial-gradient(circle var(--lens-radius) at var(--lens-x) var(--lens-y), #000 0%, #000 28%, rgb(0 0 0 / .88) 45%, rgb(0 0 0 / .5) 65%, rgb(0 0 0 / .15) 84%, transparent 100%);
+  transition: opacity 80ms ease-out;
+}
+
+.project-reveal[data-revealing='true'] .project-reveal__second {
+  opacity: 1;
+}
+
+.project-reveal.is-second .project-reveal__second {
+  opacity: 1;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.projects-page a:focus-visible, .projects-page button:focus-visible {
+  outline: 3px solid #74128f;
+  outline-offset: 5px;
+}
+
+.projects-footer {
+  padding: 60px 6vw 70px;
+  border-top: 3px solid #17121b;
+  background: #74128f;
+  color: #fffdf9;
+}
+
+.projects-footer > span {
+  font-family: 'Might Makes Right', cursive;
+  font-style: italic;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+}
+
+.projects-footer h2 {
+  font-family: 'Bazinga', 'Bangers', fantasy;
+  font-size: clamp(35px, 5vw, 70px);
+  margin: 16px 0 24px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.projects-footer a {
+  font-family: 'Bazinga', 'Bangers', fantasy;
+  display: inline-block;
+  color: inherit;
+  margin: 0 30px 15px 0;
+  font-size: 24px;
+  text-underline-offset: 6px;
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .project-panel { grid-template-columns: 1fr; }
+  .project-panel__info { border-right: 0; border-bottom: 3px solid #17121b; }
+  .project-panel__visual { padding: 25px; }
+  .project-panel h2 { font-size: 52px; }
+  .projects-hero nav { grid-template-columns: repeat(2, 1fr); }
+  .projects-hero nav a:nth-child(even) { border-right: 0; }
+  .projects-hero nav a:not(:last-child) { border-bottom: 2px solid #17121b; }
+  .projects-hero nav a:last-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 540px) {
+  .projects-hero { padding-top: 36px; }
+  .projects-hero__bottom { align-items: flex-start; flex-direction: column; }
+  .projects-hero__note { transform: rotate(-1.5deg); padding: 10px 14px; }
+  .projects-hero nav a { font-size: 15px; padding: 12px 10px; gap: 6px; }
+  .projects-list { padding: 36px 16px 48px; gap: 36px; }
+  .project-panel__info { padding: 20px; }
+  .project-panel__visual { padding: 14px; }
+  .project-panel h2 { font-size: 40px; }
+}

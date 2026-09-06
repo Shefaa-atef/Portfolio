@@ -395,11 +395,136 @@
   }
 }
 
-/* Figma portrait frame: 748 × 1310. The same stage scales down for phones. */
-@media (max-width: 1100px) and (orientation: portrait) {
+/* Dedicated Tablet stage (adapted from the phone stage layout): 561px - 1024px */
+@media (min-width: 561px) and (max-width: 1024px) {
+  .section-two {
+    height: max(780px, 100svh);
+    min-height: 700px;
+    max-height: 1100px;
+  }
+
+  .section-two__yellow-dot,
+  .section-two__line,
+  .section-two__city {
+    display: none;
+  }
+
+  .section-two__ui,
+  .section-two__ux,
+  .section-two__hacker,
+  .section-two__tech,
+  .section-two__blue-splash {
+    display: block;
+  }
+
+  .section-two__ui {
+    top: -3%;
+    right: auto;
+    left: -2%;
+    width: 44%;
+  }
+
+  .section-two__ux {
+    top: -3%;
+    right: -4%;
+    width: 45%;
+  }
+
+  .section-two__ticket {
+    top: 42%;
+    left: 50%;
+    width: min(88vw, 760px);
+    filter: drop-shadow(0 8px 0 rgb(35 35 28 / .55));
+    transform: translate3d(
+        -50%,
+        calc(-50% + (1 - var(--ticket-progress)) * 14vw),
+        0
+      )
+      perspective(1100px)
+      rotateX(calc((1 - var(--ticket-progress)) * -30deg))
+      rotateZ(calc((1 - var(--ticket-progress)) * -3deg))
+      scale(calc(.88 + var(--ticket-progress) * .12));
+  }
+
+  .section-two__pink-paint {
+    z-index: 2;
+    top: 36%;
+    bottom: auto;
+    left: 15%;
+    width: 28%;
+  }
+
+  .section-two__blue-splash {
+    top: 66%;
+    left: 36%;
+    width: 42%;
+  }
+
+  .section-two__halftone {
+    top: 76%;
+    right: auto;
+    bottom: auto;
+    left: 42%;
+    width: 44%;
+  }
+
+  .section-two__yellow-shape {
+    top: auto;
+    bottom: -6%;
+    left: -30%;
+    width: 75%;
+    transform: rotate(120deg);
+  }
+
+  .section-two__purple-circle {
+    right: -24%;
+    bottom: -22%;
+    width: 72%;
+  }
+
+  .section-two__hacker {
+    top: auto;
+    right: -8%;
+    bottom: -1%;
+    left: auto;
+    width: 68%;
+    transform: rotate(6.28deg);
+  }
+
+  .section-two__tech--ai {
+    top: 62%;
+    left: 2%;
+    width: 17%;
+    transform: rotate(16deg);
+  }
+
+  .section-two__tech--react {
+    top: 88%;
+    bottom: auto;
+    left: 18%;
+    width: 16%;
+  }
+
+  .section-two__tech--figma {
+    top: 80%;
+    bottom: auto;
+    left: 4%;
+    width: 15%;
+  }
+
+  .section-two__tech--flutter {
+    top: 70%;
+    bottom: auto;
+    left: 18%;
+    width: 22%;
+  }
+}
+
+/* Phone portrait stage: max-width 680px. */
+@media (max-width: 680px) {
   .section-two {
     height: calc(100vw * 1310 / 748);
-    min-height: 0;
+    min-height: 540px;
   }
 
   .section-two__yellow-dot,

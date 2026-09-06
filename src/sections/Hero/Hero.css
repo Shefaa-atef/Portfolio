@@ -199,12 +199,14 @@ button { font: inherit; }
 .comic-sticker--portfolio {
   top: 26.39%;
   left: 6.53%;
-  display: grid;
-  width: min(20.18vw, 290.5px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  max-width: 30vw;
   min-width: 0;
-  min-height: min(7.92vw, 81px);
-  place-items: center;
-  padding: 0 12px 5px;
+  min-height: 0;
+  padding: 8px 24px 12px;
   font-size: clamp(2.25rem, 3.22vw, 2.9rem);
   font-weight: 700;
   text-align: center;
@@ -214,12 +216,14 @@ button { font: inherit; }
 .comic-sticker--name {
   top: 64.2%;
   right: 7.2%;
-  display: grid;
-  width: min(20.5vw, 295px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  max-width: 32vw;
   min-width: 0;
-  min-height: min(7.92vw, 81px);
-  place-items: center;
-  padding: 0 12px 7px;
+  min-height: 0;
+  padding: 8px 24px 12px;
   font-size: clamp(2.5rem, 3.68vw, 3.32rem);
   text-align: center;
   transform: rotate(.35deg);
@@ -249,27 +253,28 @@ button { font: inherit; }
 }
 
 .comic-menu {
-  position: absolute;
-  z-index: 10;
+  position: fixed;
+  z-index: 990;
   display: grid;
-  top: 2.36%;
-  right: 1.77%;
-  width: min(10.46vw, 150.6px);
-  min-width: 132px;
-  height: min(7.5vw, 76.9px);
-  min-height: 66px;
+  top: 10px;
+  right: 16px;
+  width: auto;
+  min-width: 86px;
+  height: auto;
+  min-height: 40px;
   place-items: center;
-  padding: 10px 14px;
+  padding: 4px 16px;
   border: 3px solid var(--comic-ink);
-  border-radius: 31px;
+  border-radius: 22px;
   background: #fff;
-  box-shadow: 2px 2px 0 var(--comic-ink);
+  box-shadow: 3px 3px 0 var(--comic-ink);
   color: #050405;
   font-family: 'Might Makes Right', cursive;
-  font-size: clamp(2.7rem, 3.89vw, 3.5rem);
+  font-size: clamp(1.4rem, 1.8vw, 1.8rem);
   line-height: .82;
   text-transform: uppercase;
   transform: rotate(1deg);
+  cursor: pointer;
   transition: transform 140ms ease, box-shadow 140ms ease;
 }
 
@@ -278,7 +283,17 @@ button { font: inherit; }
   transform: translateY(-.04em);
 }
 
-.comic-menu:hover { box-shadow: 1px 1px 0 var(--comic-ink); transform: translate(2px, 2px) rotate(-1deg) scale(1.02, .98); }
+.comic-menu:hover {
+  box-shadow: 4px 4px 0 var(--comic-ink);
+  transform: translate(-2px, -2px) rotate(-2deg) scale(1.06);
+  background: #ffffff;
+  color: var(--comic-purple);
+}
+
+.comic-menu:active {
+  box-shadow: 1px 1px 0 var(--comic-ink);
+  transform: translate(2px, 2px) rotate(0deg) scale(0.96);
+}
 .comic-menu:focus-visible { outline: 4px solid #e91a9a; outline-offset: 5px; }
 
 .bottom-comic-banner {
@@ -373,16 +388,62 @@ button { font: inherit; }
   to { transform: translate3d(-50%, 0, 0); }
 }
 
-@media (max-width: 900px) {
+@media (min-width: 561px) and (max-width: 1024px) {
   .portfolio-hero { min-height: max(720px, 100svh); }
-  .comic-stack { top: 0; bottom: 0; left: 50%; width: 100%; }
-  .comic-cover--middle { top: -1%; left: -3%; width: min(71vw, 614px); }
-  .comic-cover--left { top: 1%; left: -20%; width: min(70vw, 605px); }
-  .comic-cover--right { top: -4%; left: 35%; width: min(98vw, 845px); }
-  .main-comic { top: -2%; left: 9%; width: min(87vw, 750px); }
-  .comic-sticker { padding: 8px 15px 11px; filter: drop-shadow(-8px -7px 0 #080708) drop-shadow(8px 8px 0 #080708); font-size: clamp(2.1rem, 7vw, 3.1rem); }
-  .comic-sticker--portfolio { top: 32%; left: 3.5%; min-width: 210px; }
-  .comic-sticker--name { right: 3.5%; bottom: 25%; min-width: 220px; }
+  .comic-stack {
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate3d(-50%, -50%, 0);
+  }
+  .main-comic {
+    top: 48%;
+    left: 50%;
+    width: min(64vw, 560px);
+    transform: translate3d(-50%, -50%, 0);
+  }
+  .comic-cover--middle {
+    top: 48%;
+    left: 46%;
+    width: min(56vw, 480px);
+    transform: translate3d(-50%, -52%, 0) rotate(4deg);
+  }
+  .comic-cover--left {
+    top: 48%;
+    left: 36%;
+    width: min(54vw, 460px);
+    transform: translate3d(-50%, -50%, 0);
+  }
+  .comic-cover--right {
+    top: 48%;
+    left: 56%;
+    width: min(62vw, 520px);
+    transform: translate3d(-50%, -48%, 0);
+  }
+  .comic-sticker {
+    padding: 8px 20px 11px;
+    filter: drop-shadow(-8px -7px 0 #080708) drop-shadow(8px 8px 0 #080708);
+  }
+  .comic-sticker--portfolio {
+    top: 25%;
+    left: 4%;
+    width: max-content;
+    max-width: 40vw;
+    min-width: 0;
+    min-height: 0;
+    font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+  }
+  .comic-sticker--name {
+    top: auto;
+    bottom: 22%;
+    right: 4%;
+    width: max-content;
+    max-width: 44vw;
+    min-width: 0;
+    min-height: 0;
+    font-size: clamp(1.75rem, 3.5vw, 2.7rem);
+  }
   .year-badge { bottom: 18.5%; left: 4%; }
   .halftone--left { width: 45vw; }
   .halftone--right { width: 44vw; }
@@ -395,30 +456,33 @@ button { font: inherit; }
   .comic-cover--left { top: 6%; left: -50%; width: 100vw; }
   .comic-cover--right { top: 0; left: 42%; width: 122vw; }
   .main-comic { top: 4%; left: -7%; width: 114vw; }
-  .comic-menu { top: 2.2%; right: 3.5%; min-width: 105px; min-height: 58px; padding: 8px 12px; border-width: 3px; border-radius: 25px; box-shadow: 2px 2px 0 var(--comic-ink); font-size: 2.35rem; }
-  .comic-sticker--portfolio { top: 33%; left: 2%; min-width: 162px; }
+  .comic-menu { top: 14px; right: 14px; min-width: 80px; min-height: 40px; padding: 4px 14px; border-width: 2.5px; border-radius: 20px; box-shadow: 2px 2px 0 var(--comic-ink); font-size: 1.5rem; }
+  .comic-sticker {
+    padding: 7px 14px 9px;
+    font-size: clamp(1.4rem, 6vw, 2.1rem);
+    filter: drop-shadow(-6px -5px 0 #080708) drop-shadow(6px 6px 0 #080708);
+  }
   .comic-sticker--portfolio {
-    width: 180px;
-    min-width: 180px;
-    min-height: 68px;
-    font-size: 2rem;
+    top: 33%;
+    left: 2%;
+    width: max-content;
+    max-width: 48vw;
+    min-width: 0;
+    min-height: 0;
+    padding: 6px 12px 8px;
+    font-size: clamp(1.25rem, 5.2vw, 1.85rem);
+    letter-spacing: -.02em;
   }
   .comic-sticker--name {
     top: 64%;
     right: 2.5%;
     bottom: auto;
-    width: 190px;
-    min-width: 190px;
-    min-height: 74px;
-    font-size: 2.05rem;
-  }
-  .comic-sticker { padding: 7px 10px 9px; font-size: clamp(1.75rem, 9vw, 2.25rem); filter: drop-shadow(-6px -5px 0 #080708) drop-shadow(6px 6px 0 #080708); }
-  .comic-sticker.comic-sticker--portfolio {
-    width: 180px;
-    min-width: 180px;
-    padding: 7px 8px 9px;
-    font-size: clamp(1.65rem, 7.2vw, 1.9rem);
-    letter-spacing: -.02em;
+    width: max-content;
+    max-width: 52vw;
+    min-width: 0;
+    min-height: 0;
+    padding: 6px 14px 8px;
+    font-size: clamp(1.35rem, 5.8vw, 2rem);
   }
   .year-badge { bottom: 17%; left: 3%; width: 66px; min-height: 122px; font-size: 3.15rem; }
   .halftone--left { bottom: 8%; left: -14%; width: 64vw; }

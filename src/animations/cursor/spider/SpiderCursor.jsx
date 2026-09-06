@@ -3,8 +3,6 @@ import normalCursor from '../../../assets/icons/normal cursor.svg'
 import clickCursor from '../../../assets/icons/click cursor.svg'
 import './SpiderCursor.css'
 
-const EDGE_RANGE = 220
-const ELEMENT_WEB_SNAP_DISTANCE = 235
 const SEGMENTS = 18
 const MAX_DROPPED_WEBS = 5
 
@@ -20,41 +18,36 @@ const INTERACTIVE_SELECTOR = [
   'summary',
   '[role="button"]',
   '[role="link"]',
+  '[role="slider"]',
+  '[role="scrollbar"]',
+  '[role="tab"]',
+  '[role="checkbox"]',
+  '[role="switch"]',
+  '[contenteditable]:not([contenteditable="false"])',
+  '[draggable="true"]',
+  '[data-no-web]',
   '[tabindex]:not([tabindex="-1"])',
 ].join(',')
 
 function isInteractiveTarget(target) {
   if (!(target instanceof Element)) return false
-  const interactiveElement = target.closest(INTERACTIVE_SELECTOR)
-
-  return Boolean(interactiveElement) || getComputedStyle(target).cursor === 'pointer'
+  return Boolean(target.closest(INTERACTIVE_SELECTOR))
 }
 
-function nearestEdge(x, width) {
-  const candidates = [
-    { edge: 'left', distance: x },
-    { edge: 'right', distance: width - x },
-  ]
-
-  return candidates.reduce((nearest, candidate) =>
-    candidate.distance < nearest.distance ? candidate : nearest,
-  )
-}
-
-function edgeAnchor(edge, y, width, height) {
-  const padding = 18
-
-  if (edge === 'left') return { x: 0, y: clamp(y - 34, padding, height - padding) }
-  return { x: width, y: clamp(y - 34, padding, height - padding) }
-}
-
-function elementAnchor(element, x, y) {
-  const bounds = element.getBoundingClientRect()
-
-  return {
-    x: clamp(x, bounds.left, bounds.right),
-    y: clamp(y, bounds.top, bounds.bottom),
+function isScrollbarPress(event) {
+  const root = document.documentElement
+  if (event.clientX >= root.clientWidth || event.clientY >= root.clientHeight) return true
+  for (let element = event.target; element instanceof HTMLElement; element = element.parentElement) {
+    if (element === document.body || element === root) continue
+    const bounds = element.getBoundingClientRect()
+    const x = event.clientX - bounds.left
+    const y = event.clientY - bounds.top
+    if (element.scrollHeight > element.clientHeight &&
+        (x < element.clientLeft || x >= element.clientLeft + element.clientWidth)) return true
+    if (element.scrollWidth > element.clientWidth &&
+        (y < element.clientTop || y >= element.clientTop + element.clientHeight)) return true
   }
+  return false
 }
 
 function makeRope(anchor, end) {
@@ -96,21 +89,53 @@ function drawRope(context, points, opacity, progress = 1) {
   context.restore()
 }
 
-function fallingRopePoints(rope) {
-  const sag = Math.min(18, rope.length * 0.05)
-
-  return Array.from({ length: SEGMENTS + 1 }, (_, index) => {
-    const progress = index / SEGMENTS
-    return {
-      x:
-        rope.anchor.x +
-        (rope.end.x - rope.anchor.x) * progress,
-      y:
-        rope.anchor.y +
-        (rope.end.y - rope.anchor.y) * progress +
-        Math.sin(progress * Math.PI) * sag,
+// Fixed-step Verlet integration: each part of the thread falls independently.
+function stepFallingRope(rope, heldEnd = null) {
+  const points = rope.points
+  for (let i = 1; i < points.length; i += 1) {
+    const point = points[i]
+    if (heldEnd && i === SEGMENTS) {
+      point.oldX = point.x
+      point.oldY = point.y
+      point.x = heldEnd.x
+      point.y = heldEnd.y
+      continue
     }
-  })
+    const vx = (point.x - point.oldX) * .992
+    const vy = (point.y - point.oldY) * .992
+    point.oldX = point.x
+    point.oldY = point.y
+    point.x += vx
+    point.y += vy + .24
+  }
+  const segmentLength = rope.length / SEGMENTS
+  for (let pass = 0; pass < 12; pass += 1) {
+    points[0].x = rope.anchor.x
+    points[0].y = rope.anchor.y
+    if (heldEnd) {
+      points[SEGMENTS].x = heldEnd.x
+      points[SEGMENTS].y = heldEnd.y
+    }
+    for (let i = 1; i < points.length; i += 1) {
+      const previous = points[i - 1]
+      const point = points[i]
+      const dx = point.x - previous.x
+      const dy = point.y - previous.y
+      const distance = Math.max(.0001, Math.hypot(dx, dy))
+      const correction = (distance - segmentLength) / distance
+      const endPinned = heldEnd && i === SEGMENTS
+      if (!endPinned) {
+        const weight = i === 1 ? 1 : .5
+        point.x -= dx * correction * weight
+        point.y -= dy * correction * weight
+      }
+      if (i > 1) {
+        const weight = endPinned ? 1 : .5
+        previous.x += dx * correction * weight
+        previous.y += dy * correction * weight
+      }
+    }
+  }
 }
 
 export default function SpiderCursor() {
@@ -129,7 +154,7 @@ export default function SpiderCursor() {
     let width = window.innerWidth
     let height = window.innerHeight
     let dpr = Math.min(window.devicePixelRatio || 1, 2)
-    let animationFrame
+    let animationFrame = null
     let lastTime = performance.now()
     let visible = false
     let activeWeb = null
@@ -154,20 +179,10 @@ export default function SpiderCursor() {
       if (!activeWeb) return
 
       droppedWebs.push({
+        points: makeRope(activeWeb.anchor, mouse),
+        accumulated: 0,
         anchor: activeWeb.anchor,
-        end: { x: mouse.x, y: mouse.y },
-        length: Math.max(
-          1,
-          Math.hypot(
-            mouse.x - activeWeb.anchor.x,
-            mouse.y - activeWeb.anchor.y,
-          ),
-        ),
-        velocity: {
-          x: clamp(activeWeb.velocity.x, -14, 14) * 0.34,
-          y: clamp(activeWeb.velocity.y, -14, 14) * 0.34,
-        },
-        edge: activeWeb.edge,
+        length: Math.max(1, Math.hypot(mouse.x - activeWeb.anchor.x, mouse.y - activeWeb.anchor.y)),
         born: now,
       })
       droppedWebs = droppedWebs.slice(-MAX_DROPPED_WEBS)
@@ -175,80 +190,82 @@ export default function SpiderCursor() {
       cursor.classList.toggle('spider-cursor--click', hoveringInteractive)
     }
 
+    let movePending = false
     const move = (event) => {
       const previousX = mouse.x
       const previousY = mouse.y
       mouse.x = event.clientX
       mouse.y = event.clientY
       visible = true
-      hoveringInteractive = isInteractiveTarget(event.target)
-      cursor.style.opacity = '1'
-      cursor.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0)`
 
-      const nearest = nearestEdge(mouse.x, width)
-      const attachRange = reducedMotion.matches ? 165 : EDGE_RANGE
-      const now = performance.now()
-
-      if (activeWeb?.source === 'element') {
+      if (activeWeb) {
         activeWeb.velocity.x = mouse.x - previousX
         activeWeb.velocity.y = mouse.y - previousY
-
-        const stretch = Math.hypot(
-          mouse.x - activeWeb.anchor.x,
-          mouse.y - activeWeb.anchor.y,
-        )
-
-        if (stretch > ELEMENT_WEB_SNAP_DISTANCE) dropActiveWeb(now)
-      } else if (nearest.distance <= attachRange) {
-        if (!activeWeb || activeWeb.edge !== nearest.edge) {
-          dropActiveWeb(now)
-          activeWeb = {
-            source: 'edge',
-            edge: nearest.edge,
-            anchor: edgeAnchor(nearest.edge, mouse.y, width, height),
-            born: now,
-            velocity: { x: 0, y: 0 },
-          }
-        }
-        activeWeb.velocity.x = mouse.x - previousX
-        activeWeb.velocity.y = mouse.y - previousY
-      } else if (activeWeb && nearest.distance > attachRange + 30) {
-        dropActiveWeb(now)
       }
 
-      cursor.classList.toggle(
-        'spider-cursor--click',
-        hoveringInteractive || Boolean(activeWeb),
-      )
+      if (!movePending) {
+        movePending = true
+        requestAnimationFrame(() => {
+          movePending = false
+          hoveringInteractive = isInteractiveTarget(event.target)
+          cursor.style.opacity = '1'
+          cursor.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0)`
 
-      const tilt = activeWeb
-        ? (Math.atan2(
-            activeWeb.anchor.y - mouse.y,
-            activeWeb.anchor.x - mouse.x,
-          ) *
-            180) /
-            Math.PI +
-          90
-        : 0
-      cursor.style.setProperty('--spider-cursor-tilt', `${tilt}deg`)
+          cursor.classList.toggle(
+            'spider-cursor--click',
+            hoveringInteractive || Boolean(activeWeb),
+          )
+
+          const tilt = activeWeb
+            ? (Math.atan2(
+                activeWeb.anchor.y - mouse.y,
+                activeWeb.anchor.x - mouse.x,
+              ) *
+                180) /
+                Math.PI +
+              90
+            : 0
+          cursor.style.setProperty('--spider-cursor-tilt', `${tilt}deg`)
+        })
+      }
     }
 
-    const startElementWeb = (event) => {
-      const target = event.target instanceof Element
-        ? event.target.closest('[data-spider-web-leave]')
-        : null
-
-      if (!target || target.contains(event.relatedTarget)) return
-
-      const now = performance.now()
-      dropActiveWeb(now)
+    const press = (event) => {
+      if (event.button !== 0 || event.pointerType === 'touch') return
+      if (event.defaultPrevented || isInteractiveTarget(event.target) || isScrollbarPress(event)) return
+      move(event)
+      dropActiveWeb(performance.now())
+      const anchor = [
+        { x: 0, y: mouse.y, distance: mouse.x },
+        { x: width, y: mouse.y, distance: width - mouse.x },
+        { x: mouse.x, y: 0, distance: mouse.y },
+        { x: mouse.x, y: height, distance: height - mouse.y },
+      ].reduce((closest, candidate) => candidate.distance < closest.distance ? candidate : closest)
       activeWeb = {
-        source: 'element',
-        anchor: elementAnchor(target, event.clientX, event.clientY),
-        born: now,
+        source: 'click',
+        anchor: { x: anchor.x, y: anchor.y },
+        born: performance.now(),
         velocity: { x: 0, y: 0 },
       }
+      move(event)
       cursor.classList.add('spider-cursor--click')
+      wakeAnimation()
+    }
+
+    const release = () => {
+      if (activeWeb?.source !== 'click') return
+      dropActiveWeb(performance.now())
+      cursor.style.setProperty('--spider-cursor-tilt', '0deg')
+    }
+
+    const cancelWeb = () => {
+      cancelAnimationFrame(animationFrame)
+      animationFrame = null
+      activeWeb = null
+      droppedWebs = []
+      context.clearRect(0, 0, width, height)
+      cursor.classList.toggle('spider-cursor--click', hoveringInteractive)
+      cursor.style.setProperty('--spider-cursor-tilt', '0deg')
     }
 
     const leave = () => {
@@ -261,67 +278,63 @@ export default function SpiderCursor() {
       visible = true
     }
 
+    const wakeAnimation = () => {
+      if (animationFrame !== null) return
+      lastTime = performance.now()
+      animationFrame = requestAnimationFrame(animate)
+    }
+
     const animate = (now) => {
+      animationFrame = null
       const delta = Math.min(32, now - lastTime)
       lastTime = now
       context.clearRect(0, 0, width, height)
 
       if (activeWeb && visible) {
-        const shootProgress = clamp((now - activeWeb.born) / 145, 0, 1)
+        const shootProgress = reducedMotion.matches ? 1 : clamp((now - activeWeb.born) / 100, 0, 1)
         const rope = makeRope(mouse, activeWeb.anchor)
-        const distance = activeWeb.source === 'element'
-          ? Math.hypot(
-              mouse.x - activeWeb.anchor.x,
-              mouse.y - activeWeb.anchor.y,
-            )
-          : nearestEdge(mouse.x, width).distance
-        const tension = activeWeb.source === 'element'
-          ? clamp(distance / ELEMENT_WEB_SNAP_DISTANCE, .2, 1)
-          : clamp(1 - distance / EDGE_RANGE, .18, 1)
-
-        drawRope(context, rope, 0.58 + tension * 0.4, shootProgress)
+        drawRope(context, rope, .92, shootProgress)
       }
 
-      droppedWebs = droppedWebs.filter((rope) => now - rope.born < 1900)
+      droppedWebs = droppedWebs.filter((rope) => now - rope.born < (reducedMotion.matches ? 0 : 2600))
       droppedWebs.forEach((rope) => {
         const age = now - rope.born
-        const frameScale = Math.max(0.001, delta / 16.67)
-        const previousX = rope.end.x
-        const previousY = rope.end.y
-        rope.velocity.y += 0.34 * frameScale
-        rope.velocity.x *= Math.pow(0.988, frameScale)
-        rope.end.x += rope.velocity.x * frameScale
-        rope.end.y += rope.velocity.y * frameScale
-
-        const offsetX = rope.end.x - rope.anchor.x
-        const offsetY = rope.end.y - rope.anchor.y
-        const distance = Math.max(0.001, Math.hypot(offsetX, offsetY))
-        rope.end.x = rope.anchor.x + (offsetX / distance) * rope.length
-        rope.end.y = rope.anchor.y + (offsetY / distance) * rope.length
-        rope.velocity.x = (rope.end.x - previousX) / frameScale
-        rope.velocity.y = (rope.end.y - previousY) / frameScale
-
-        const opacity = clamp(1 - Math.max(0, age - 1050) / 850, 0, 0.82)
-        const points = fallingRopePoints(rope)
-        drawRope(context, points, opacity)
+        rope.accumulated += delta
+        while (rope.accumulated >= 1000 / 120) {
+          stepFallingRope(rope)
+          rope.accumulated -= 1000 / 120
+        }
+        const opacity = .82 * clamp(1 - Math.max(0, age - 1600) / 1000, 0, 1)
+        drawRope(context, rope.points, opacity)
       })
 
-      animationFrame = requestAnimationFrame(animate)
+      if (activeWeb || droppedWebs.length) animationFrame = requestAnimationFrame(animate)
     }
 
     resize()
     window.addEventListener('resize', resize)
     window.addEventListener('mousemove', move, { passive: true })
-    document.addEventListener('pointerout', startElementWeb, { passive: true })
+    window.addEventListener('pointerdown', press, { passive: true })
+    window.addEventListener('pointerup', release, { passive: true })
+    window.addEventListener('pointercancel', release, { passive: true })
+    window.addEventListener('wheel', cancelWeb, { passive: true })
+    window.addEventListener('scroll', cancelWeb, { passive: true, capture: true })
+    window.addEventListener('dragstart', cancelWeb)
+    window.addEventListener('blur', leave)
     document.documentElement.addEventListener('mouseleave', leave)
     document.documentElement.addEventListener('mouseenter', enter)
-    animationFrame = requestAnimationFrame(animate)
 
     return () => {
       cancelAnimationFrame(animationFrame)
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', move)
-      document.removeEventListener('pointerout', startElementWeb)
+      window.removeEventListener('pointerdown', press)
+      window.removeEventListener('pointerup', release)
+      window.removeEventListener('pointercancel', release)
+      window.removeEventListener('wheel', cancelWeb)
+      window.removeEventListener('scroll', cancelWeb, true)
+      window.removeEventListener('dragstart', cancelWeb)
+      window.removeEventListener('blur', leave)
       document.documentElement.removeEventListener('mouseleave', leave)
       document.documentElement.removeEventListener('mouseenter', enter)
       document.documentElement.classList.remove('spider-cursor-active')

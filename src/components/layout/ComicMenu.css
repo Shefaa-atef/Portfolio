@@ -1,0 +1,258 @@
+/* ComicMenu.css - Animated Site-Matched Comic Menu Overlay */
+
+.comic-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  background: rgba(33, 29, 30, 0.82);
+  backdrop-filter: blur(8px);
+  animation: comicOverlayFade 250ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes comicOverlayFade {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+.comic-menu-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 720px);
+  padding: clamp(24px, 4vw, 36px);
+  border: 3.5px solid var(--comic-ink, #211d1e);
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 10px 10px 0 var(--comic-ink, #211d1e), 0 20px 40px rgba(0, 0, 0, 0.35);
+  color: var(--comic-ink, #211d1e);
+  overflow: hidden;
+  transform-origin: 50% 30%;
+  animation: comicBookUnfold 380ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes comicBookUnfold {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateX(-12deg) rotateY(4deg) scale(0.82) translateY(24px);
+  }
+  60% {
+    transform: perspective(1000px) rotateX(2deg) rotateY(-1deg) scale(1.02) translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1) translateY(0);
+  }
+}
+
+.comic-menu-web {
+  position: absolute;
+  top: -45px;
+  right: -45px;
+  width: 240px;
+  opacity: 0.14;
+  pointer-events: none;
+  animation: comicWebSpin 25s linear infinite;
+}
+
+@keyframes comicWebSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Header */
+.comic-menu-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 3px dashed var(--comic-ink, #211d1e);
+}
+
+.comic-menu-modal__kicker {
+  display: block;
+  font-family: 'Might Makes Right', cursive, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  color: var(--comic-purple, #74128f);
+  text-transform: uppercase;
+}
+
+.comic-menu-modal__heading {
+  margin: 2px 0 0 0;
+  font-family: 'Might Makes Right', cursive, sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 0.88;
+  color: var(--comic-ink, #211d1e);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Close Button matching Hero menu button style */
+.comic-menu-modal__close-btn {
+  display: grid;
+  place-items: center;
+  padding: 8px 22px;
+  border: 3px solid var(--comic-ink, #211d1e);
+  border-radius: 25px;
+  background: #ffffff;
+  box-shadow: 3px 3px 0 var(--comic-ink, #211d1e);
+  color: var(--comic-ink, #211d1e);
+  font-family: 'Might Makes Right', cursive, sans-serif;
+  font-size: 1.8rem;
+  line-height: 0.85;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: rotate(1.5deg);
+  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.comic-menu-modal__close-btn:hover {
+  background: #e91a9a;
+  color: #ffffff;
+  box-shadow: 1px 1px 0 var(--comic-ink, #211d1e);
+  transform: translate(2px, 2px) rotate(-1.5deg) scale(1.04, 0.96);
+}
+
+/* Menu Items Grid with Staggered Entrance */
+.comic-menu-modal__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.comic-menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 14px 20px;
+  border: 2.5px solid var(--comic-ink, #211d1e);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 3.5px 3.5px 0 var(--comic-ink, #211d1e);
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  opacity: 0;
+  animation: comicCardSlideIn 340ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--stagger-delay, 0ms);
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+@keyframes comicCardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.comic-menu-item:hover {
+  transform: translate(-3px, -4px) rotate(-0.5deg);
+  box-shadow: 7px 8px 0 var(--comic-ink, #211d1e);
+  border-color: var(--item-accent);
+  background: #fffdf8;
+}
+
+.comic-menu-item:active {
+  transform: translate(2px, 2px) rotate(0deg);
+  box-shadow: 1.5px 1.5px 0 var(--comic-ink, #211d1e);
+}
+
+.comic-menu-item__num {
+  font-family: 'Might Makes Right', cursive, sans-serif;
+  font-size: 1.65rem;
+  line-height: 1;
+  color: var(--item-accent);
+  transition: transform 180ms ease;
+}
+
+.comic-menu-item:hover .comic-menu-item__num {
+  transform: scale(1.2) rotate(-4deg);
+}
+
+.comic-menu-item__text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.comic-menu-item__title {
+  font-family: 'Might Makes Right', cursive, sans-serif;
+  font-size: 1.85rem;
+  line-height: 0.9;
+  color: var(--comic-ink, #211d1e);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.comic-menu-item__subtitle {
+  font-family: sans-serif;
+  font-size: 0.84rem;
+  color: #666;
+  margin-top: 3px;
+}
+
+.comic-menu-item__arrow {
+  font-family: 'Might Makes Right', sans-serif;
+  font-size: 1.5rem;
+  color: var(--comic-ink, #211d1e);
+  transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1), color 180ms ease;
+}
+
+.comic-menu-item:hover .comic-menu-item__arrow {
+  transform: translateX(6px) scale(1.2);
+  color: var(--item-accent);
+}
+
+/* Footer */
+.comic-menu-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 16px;
+  border-top: 3px dashed var(--comic-ink, #211d1e);
+}
+
+.comic-menu-footer-link {
+  font-family: 'Might Makes Right', cursive, sans-serif;
+  font-size: 1.35rem;
+  color: var(--comic-ink, #211d1e);
+  text-decoration: none;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.comic-menu-footer-link:hover {
+  color: var(--comic-purple, #74128f);
+  transform: translateY(-3px) rotate(-1deg);
+}
+
+@media (max-width: 500px) {
+  .comic-menu-item {
+    padding: 12px 14px;
+  }
+  .comic-menu-item__title {
+    font-size: 1.5rem;
+  }
+  .comic-menu-item__subtitle {
+    font-size: 0.78rem;
+  }
+}

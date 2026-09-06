@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './LoadingScreen.css'
 
-function LoadingScreen({ onComplete }) {
+function LoadingScreen({ onComplete, theme = 'light' }) {
   const [isRevealing, setIsRevealing] = useState(false)
   const hasFinished = useRef(false)
 
@@ -22,7 +22,7 @@ function LoadingScreen({ onComplete }) {
         hasFinished.current = true
         onComplete()
       }
-    }, 4500)
+    }, 1200)
 
     return () => {
       window.cancelAnimationFrame(firstFrameId)
@@ -46,7 +46,7 @@ function LoadingScreen({ onComplete }) {
   return (
     <div
       aria-hidden="true"
-      className={`loading-screen${isRevealing ? ' loading-screen--reveal' : ''}`}
+      className={`loading-screen loading-screen--${theme}${isRevealing ? ' loading-screen--reveal' : ''}`}
       onAnimationEnd={handleAnimationEnd}
     >
       <div className="loading-screen__spider-curtain" />
