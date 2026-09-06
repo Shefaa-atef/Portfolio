@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { pageHref } from '../../utils/navigation'
 import aboutPage from '../../assets/images/photos/section 3/about me@3x.webp'
 import projectsPage from '../../assets/images/photos/section 3/my projects@3x.webp'
 import designsPage from '../../assets/images/photos/section 3/designs@3x.webp'
@@ -34,7 +35,7 @@ const PORTFOLIO_PAGES = [
 function PortfolioPage({ page, isSelected, onSelect }) {
   const handleClick = () => {
     onSelect((prev) => (prev === page.id ? null : page.id))
-    if (page.destination) window.location.assign(`${import.meta.env.BASE_URL}${page.destination.slice(1)}`)
+    if (page.destination) window.location.assign(pageHref(page.destination, 'projects'))
   }
 
   return (

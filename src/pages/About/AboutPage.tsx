@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { getReturnHref } from "../../utils/navigation";
 import Hero from "./components/Hero";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
@@ -22,7 +23,7 @@ export default function AboutPage() {
 
       <a
         className="cv-return"
-        href={import.meta.env.BASE_URL}
+        href={getReturnHref()}
         aria-label="Return to the main portfolio"
       >
         <span className="cv-return__arrow" aria-hidden="true">←</span>

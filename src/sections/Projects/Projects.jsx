@@ -1,4 +1,5 @@
 import { projects } from '../../data/projects'
+import { getReturnHref, pageHref } from '../../utils/navigation'
 import ProjectCard from './ProjectCard'
 import SpiderCursor from '../../animations/cursor/spider/SpiderCursor'
 import InvertedSelection from '../../components/common/InvertedSelection'
@@ -14,7 +15,7 @@ export default function Projects() {
       {/* Return to home button */}
       <a
         className="cv-return"
-        href={import.meta.env.BASE_URL}
+        href={getReturnHref()}
         aria-label="Return to the main portfolio"
       >
         <span className="cv-return__arrow" aria-hidden="true">←</span>
@@ -64,7 +65,7 @@ export default function Projects() {
           <span>Next chapter?</span>
           <h2>Let’s build something.</h2>
           <a href="mailto:shefaalhendi@gmail.com">Get in touch ↗</a>
-          <a href={`${import.meta.env.BASE_URL}designs/`}>Explore my designs →</a>
+          <a href={pageHref('designs/')}>Explore my designs →</a>
         </footer>
       </main>
     </div>

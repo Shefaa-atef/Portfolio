@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { getReturnHref } from "../../utils/navigation";
 import DesignsHero from "./components/DesignsHero";
 import ToolkitSection from "./components/ToolkitSection";
 import LogoGallery from "./components/LogoGallery";
@@ -25,7 +26,7 @@ export default function DesignsPage() {
       {/* Return to home button */}
       <a
         className="cv-return"
-        href={import.meta.env.BASE_URL}
+        href={getReturnHref()}
         aria-label="Return to the main portfolio"
       >
         <span className="cv-return__arrow" aria-hidden="true">←</span>

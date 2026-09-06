@@ -32,7 +32,7 @@ function HomePage() {
       const id = window.location.hash.replace('#', '')
       const el = document.getElementById(id)
       if (el) {
-        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 300)
+        el.scrollIntoView({ behavior: 'instant' })
       }
     }
   }, [isLoading])

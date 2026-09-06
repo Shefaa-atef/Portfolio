@@ -1,4 +1,5 @@
 import { useEffect, useCallback } from 'react'
+import { pageHref } from '../../utils/navigation'
 import spiderWebs from '../../assets/images/SVG/section 3/spider webs.svg'
 import cvPdf from '../../assets/Shefa_Alhendi_CV_2026.pdf'
 import './ComicMenu.css'
@@ -42,6 +43,15 @@ const MENU_ITEMS = [
   },
   {
     num: '05',
+    title: 'DESIGNS',
+    subtitle: 'Visual Design & Creative Work',
+    target: null,
+    isExternalRoute: true,
+    route: '/designs/',
+    accent: 'var(--comic-purple, #74128f)',
+  },
+  {
+    num: '06',
     title: 'CONTACT',
     subtitle: 'Social Links & Signals',
     target: 'contact',
@@ -89,7 +99,7 @@ export default function ComicMenu({ isOpen, onClose }) {
       if (window.location.pathname.replace(/\/+$/, '') === route.replace(/\/+$/, '')) {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
-        window.location.assign(route)
+        window.location.assign(pageHref(item.route))
       }
       return
     }
