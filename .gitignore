@@ -23,7 +23,7 @@ coverage/
 
 # Local tooling artifacts
 .playwright-cli/
-output/
+output/playwright/
 
 # Editor directories and files
 .vscode/*

@@ -18,7 +18,7 @@ This repository contains a comic-inspired personal portfolio for Shefa Atef. It 
 
 - React 19
 - Vite 8
-- JavaScript, JSX, and TSX components
+- JavaScript and JSX components
 - CSS modules/files for page styling
 - ESLint for linting
 - Sharp for prebuild artwork optimization
