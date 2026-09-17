@@ -1,16 +1,61 @@
-# React + Vite
+# Spiderfolio — Shefa' Atef
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comic-inspired personal portfolio combining frontend development, UI/UX design, illustration, and motion.
 
-Currently, two official plugins are available:
+[View the portfolio](https://shefaa-atef.github.io/Portfolio/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Highlights
 
-## React Compiler
+- Illustrated landing page with a custom spider cursor.
+- Comic-style navigation and animated loading screens.
+- Dedicated About, Designs, and Projects pages.
+- Design galleries and project information.
+- Artwork optimization before development and production builds.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Built with
 
-## Expanding the ESLint configuration
+React 19, JavaScript and TSX components, Vite 8, GSAP, Tailwind CSS 4, and Sharp for image optimization.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Run locally
+
+Use Node.js 22.12 or later in the 22.x series and npm. The GitHub Pages workflow uses Node 22.
+
+```sh
+git clone https://github.com/Shefaa-atef/Portfolio.git
+cd Portfolio
+npm ci
+npm run dev
+```
+
+Open the URL printed by Vite with the `/Portfolio/` path, typically `http://localhost:5173/Portfolio/`.
+
+## Commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Optimize artwork, then start Vite. |
+| `npm run build` | Optimize artwork and build the site into `dist/`. |
+| `npm run preview` | Preview the built site. |
+| `npm run lint` | Run ESLint. |
+
+The `predev` and `prebuild` hooks run `scripts/optimize-artwork.mjs`. It reads the original SVG artwork and writes optimized copies into `src/assets/generated/`.
+
+## Source guide
+
+| Path | Purpose |
+| --- | --- |
+| `src/App.jsx` | Route selection and page composition. |
+| `src/sections/` | Landing-page and project sections. |
+| `src/pages/About/` | Background, skills, experience, and contact content. |
+| `src/pages/Designs/` | Design and illustration galleries. |
+| `src/data/projects.js` | Project content. |
+| `src/animations/cursor/spider/` | Spider cursor behavior and styling. |
+| `src/assets/` | Images and generated artwork. |
+
+## Deployment
+
+The default branch is **master**. Pushes to it trigger `.github/workflows/deploy.yml`, which builds the site and deploys to GitHub Pages.
+
+Vite uses `base: '/Portfolio/'` and separate HTML entries for the home, About, Designs, and Projects pages. Preserve the path's capitalization when linking to the deployed site. Update the base path if hosting elsewhere.
+
+Run build and lint before publishing, then check navigation and artwork at desktop and mobile widths.
