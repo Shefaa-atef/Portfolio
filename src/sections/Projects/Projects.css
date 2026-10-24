@@ -95,6 +95,9 @@
   border-right: 0;
 }
 
+.projects-hero nav a { border-bottom: 2px solid #17121b; }
+.projects-hero nav a:nth-child(5n) { border-right: 0; }
+
 .projects-hero nav a span:first-child {
   font-size: 14px;
   color: #74128f;
@@ -327,7 +330,9 @@
   .projects-hero nav { grid-template-columns: repeat(2, 1fr); }
   .projects-hero nav a:nth-child(even) { border-right: 0; }
   .projects-hero nav a:not(:last-child) { border-bottom: 2px solid #17121b; }
-  .projects-hero nav a:last-child { grid-column: 1 / -1; }
+  .projects-hero nav a:nth-child(5n) { border-right: 2px solid #17121b; }
+  .projects-hero nav a:nth-child(even) { border-right: 0; }
+  .projects-hero nav a:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 
 @media (max-width: 540px) {

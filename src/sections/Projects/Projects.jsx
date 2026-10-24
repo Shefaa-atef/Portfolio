@@ -47,7 +47,7 @@ export default function Projects() {
           <nav aria-label="Jump to project">
             {projects.map((project, index) => (
               <a key={project.id} href={`#${project.id}`}>
-                <span>0{index + 1}</span> {project.name} <span aria-hidden="true">↘</span>
+                <span>{String(index + 1).padStart(2, '0')}</span> {project.name} <span aria-hidden="true">↘</span>
               </a>
             ))}
           </nav>

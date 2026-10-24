@@ -12,6 +12,12 @@ A comic-inspired personal portfolio combining frontend development, UI/UX design
 - Design galleries and project information.
 - Artwork optimization before development and production builds.
 
+## Project gallery
+
+The Projects page includes Mansaf Rush, AI Systems (AI Security & Compliance Analyst), Naqra, Palestine, Deep Mindset, Tamrat, Zaid, EcoPals, Easy Robot Kit, and Carevision Kiosk.
+
+New gallery images use actual project material: Mansaf Rush gameplay captures, Palestine scene captures, English/Arabic AI analyst captures, Naqra's approved app artwork, and original/adversarial MNIST samples from the [Deep Mindset team repository](https://github.com/kawtharzaraket/Deep-Mindset). Deep Mindset is credited as a team project. The MNIST presentation cards arrange repository samples; they are not screenshots of the Streamlit interface.
+
 ## Built with
 
 React 19, JavaScript and TSX components, Vite 8, GSAP, Tailwind CSS 4, and Sharp for image optimization.
