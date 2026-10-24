@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { pageHref } from '../../utils/navigation'
 import spiderWebs from '../../assets/images/SVG/section 3/spider webs.svg'
-import cvPdf from '../../assets/Shefa_Alhendi_CV_2026.pdf'
+import cvPdf from '../../assets/Shefa_Alhendi_Resume_2026.pdf'
 import './ComicMenu.css'
 
 const MENU_ITEMS = [
@@ -187,7 +187,7 @@ export default function ComicMenu({ isOpen, onClose }) {
           ))}
           <a
             href={cvPdf}
-            download="Shefa_Alhendi_CV_2026.pdf"
+            download="Shefa_Alhendi_Resume_2026.pdf"
             onClick={(e) => {
               e.preventDefault();
               fetch(cvPdf)
@@ -197,7 +197,7 @@ export default function ComicMenu({ isOpen, onClose }) {
                   const a = document.createElement("a");
                   a.style.display = "none";
                   a.href = url;
-                  a.download = "Shefa_Alhendi_CV_2026.pdf";
+                  a.download = "Shefa_Alhendi_Resume_2026.pdf";
                   document.body.appendChild(a);
                   a.click();
                   document.body.removeChild(a);

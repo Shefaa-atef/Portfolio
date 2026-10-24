@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Starburst from "./Starburst";
 import heroPhoto from "../../../assets/images/photos/about/1_about.webp";
-import cvPdf from "../../../assets/Shefa_Alhendi_CV_2026.pdf";
+import cvPdf from "../../../assets/Shefa_Alhendi_Resume_2026.pdf";
 
 export default function Hero() {
   const [go, setGo] = useState(false);
@@ -16,7 +16,7 @@ export default function Hero() {
         const a = document.createElement("a");
         a.style.display = "none";
         a.href = url;
-        a.download = "Shefa_Alhendi_CV_2026.pdf";
+        a.download = "Shefa_Alhendi_Resume_2026.pdf";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -47,10 +47,10 @@ export default function Hero() {
           </span>
           <a
             href={cvPdf}
-            download="Shefa_Alhendi_CV_2026.pdf"
+            download="Shefa_Alhendi_Resume_2026.pdf"
             onClick={handleDownloadPdf}
             className="font-bb text-base px-3.5 py-1.5 bg-[#ffcc00] text-black border-2 border-black shadow-[3px_3px_0_#000] hover:translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0_#000] transition-all flex items-center gap-2 cursor-pointer uppercase tracking-wider font-bold"
-            title="Download Official CV (PDF)"
+            title="Download Resume (PDF)"
           >
             <span>📄 RESUME (PDF)</span>
             <span className="text-xs font-black">↓</span>
